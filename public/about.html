@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - KHOJ</title>
+  <link rel="icon" type="image/png" href="favicons/favicon_io/favicon-32x32.png">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="about2.css">
+  <style>
+    #home1{
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <a href="index.html"><i class="fas fa-search"></i> KHOJ</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html" id="home1"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="report-lost.html" id="lostLink"><i class="fas fa-user-minus"></i> Report Lost</a></li>
+      <li><a href="report-found.html" id="foundLink" ><i class="fas fa-user-plus"></i> Report Found</a></li>
+      <li><a href="youritem.html"><i class="fas fa-box"></i> Your Items</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero" data-aos="fade">
+    <h1>Welcome to KHOJ</h1>
+    <p>Your trusted companion in finding what matters most.</p>
+  </header>
+
+  <section class="content-section" data-aos="fade-up">
+    <h2>Our Mission</h2>
+    <p>KHOJ is revolutionizing the way India handles lost and found. We're building the nation's first centralized digital platform for reporting and reclaiming lost items — from metro stations to shopping malls.</p>
+  </section>
+
+  <section class="content-section" data-aos="fade-left">
+    <h2>How It Works</h2>
+    <ul>
+      <li><strong>Report:</strong> Share your lost or found item with key details.</li>
+      <li><strong>Match:</strong> Let our intelligent system find potential matches.</li>
+      <li><strong>Retrieve:</strong> Reclaim your item with proper proof.</li>
+    </ul>
+  </section>
+
+  <section class="content-section" data-aos="fade-right">
+    <h2>AI-Powered Verification</h2>
+    <p>We ensure your reports go through secure verification using AI & image recognition to reduce fraud and build a trustworthy ecosystem.</p>
+  </section>
+
+  <section class="content-section" data-aos="zoom-in">
+    <h2>Why It Matters</h2>
+    <p>Each year, countless personal belongings are lost in public places. KHOJ ensures they aren’t lost forever — providing peace of mind, reducing police workload, and uniting people with what’s rightfully theirs.</p>
+  </section>
+
+  <section class="invest-section" data-aos="flip-up">
+    <h2>Support the Movement</h2>
+    <p>Be a part of India’s first national Lost & Found platform. Help us expand, innovate and reach every corner of the country.</p>
+    <a href="https://theyouthcompany.in/product/khoj/" target="_blank">
+      <button class="invest-btn">INVEST IN KHOJ</button>
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 <strong>KHOJ</strong> — Reconnecting India with Trust ❤️</p>
+      <p>
+        <a href="about.html">About Us</a> |
+        <a href="contact.html">Contact</a> |
+        <a href="https://theyouthcompany.in/product/khoj/" target="_blank">Invest</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+    document.addEventListener("scroll", function () {
+      document.querySelectorAll(".content-section").forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop < window.innerHeight - 50) {
+          section.classList.add("show");
+        }
+      });
+    });
+
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+      }
+  </script>
+</body>
+</html>

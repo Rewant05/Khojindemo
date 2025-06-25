@@ -1,0 +1,36 @@
+app.post("/report-found", verifyToken, upload.single("image"), (req, res) => {
+  const { name, contact, item_name, description, location, date_found } = req.body;
+  const image_url = req.file ? `uploads/${req.file.filename}` : null;
+
+  if (!name || !contact || !item_name || !description || !location || !date_found) {
+    return res.status(400).json({ message: "All fields except image are required" });
+  }
+
+  const sql = "INSERT INTO found_items (name, contact, item_name, description, location, date_found, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [name, contact, item_name, description, location, date_found, image_url], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+    res.json({ message: "Found item reported successfully!", id: result.insertId });
+  });
+});
+
+// Report Lost Item (NEW: Added this endpoint)
+app.post("/report-lost", verifyToken, upload.single("image"), (req, res) => {
+  const { name, contact, item_name, description, location, date_lost } = req.body;
+  const image_url = req.file ? `uploads/${req.file.filename}` : null;
+
+  if (!name || !contact || !item_name || !description || !location || !date_lost) {
+    return res.status(400).json({ message: "All fields except image are required" });
+  }
+
+  const sql = "INSERT INTO lost_items (name, contact, item_name, description, location, date_lost, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [name, contact, item_name, description, location, date_lost, image_url], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+    res.json({ message: "Lost item reported successfully!", id: result.insertId });
+  });
+});

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KHOJ - India's Lost & Found</title>
+    <!-- Meta Description (SEO) -->
+    <meta
+      name="description"
+      content="KHOJ is India's leading lost and found platform, connecting people to lost & found centers nationwide. Report or find lost items easily."
+    />
+
+    <!-- Keywords (SEO) -->
+    <meta
+      name="keywords"
+      content="Lost and Found, Khoj, Report Lost Item, Report Found Item, Find Lost Items, India Lost and Found"
+    />
+
+    <!-- Author -->
+    <meta name="author" content="KHOJ Team" />
+
+    <!-- Open Graph Meta Tags (For social media sharing) -->
+    <meta property="og:title" content="KHOJ - India's Lost & Found Platform" />
+    <meta
+      property="og:description"
+      content="Find what you’ve lost, return what you’ve found. KHOJ helps you reconnect with lost belongings across India."
+    />
+    <meta property="og:image" content="https://khoj-in.netlify.app/logo.png" />
+    <meta property="og:url" content="https://khoj-in.netlify.app/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KHOJ - India's Lost & Found Platform" />
+    <meta
+      name="twitter:description"
+      content="KHOJ connects people with lost & found centers across India. Report lost items and find what you've lost."
+    />
+    <meta name="twitter:image" content="https://khoj-in.netlify.app/logo.png" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicons/favicon_io/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="index2.css">
+
+    <style>
+      .home1{
+        color: #ffd700;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+        <div class="logo">
+          <a href="index.html"><i class="fas fa-search"></i> KHOJ</a>
+        </div>      
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <ul class="nav-links">
+          <li><a href="index.html" class="home1"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="report-lost.html" id="lostLink"><i class="fas fa-user-minus"></i> Report Lost</a></li>
+          <li><a href="report-found.html" id="foundLink"><i class="fas fa-user-plus"></i> Report Found</a></li>
+          <li><a href="youritem.html"><i class="fas fa-box"></i> Your Items</a></li>
+          <li><a href="login.html" id="authLink"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        </ul>      
+      </nav>
+
+    <header>
+      <h1>India's Central Lost & Found Network</h1>
+      <p>Built to reconnect people with their lost belongings — with purpose and tech.</p>
+      <div class="cta-buttons">
+        <button class="btn">Report Lost</button>
+        <button class="btn">Report Found</button>
+      </div>
+    </header>
+
+    <section class="slider">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">📸 Upload clear item pictures for accurate matches</div>
+          <div class="swiper-slide">🧠 Smart AI-powered match engine coming soon</div>
+          <div class="swiper-slide">🔐 Privacy protected - your data stays secure</div>
+          <div class="swiper-slide">🗺️ Geo-tag items to increase visibility and makes tracing easy</div>
+          <div class="swiper-slide">⏱️ Real-time updates when a match is found</div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <section class="features" data-aos="fade-up">
+        <h2>Why Use KHOJ?</h2>
+        <div class="features-grid">
+          <div class="feature-box" data-aos="flip-left">
+            <i class="fas fa-bolt"></i>
+            <h3>Instant Matching</h3>
+            <p>Our system continuously scans for potential item matches.</p>
+          </div>
+          <div class="feature-box" data-aos="flip-right">
+            <i class="fas fa-user-shield"></i>
+            <h3>Secure Identity</h3>
+            <p>Your data is private and encrypted. Always.</p>
+          </div>
+          <div class="feature-box" data-aos="flip-left">
+            <i class="fas fa-location-arrow"></i>
+            <h3>Smart Tracking</h3>
+            <p>Track items based on location, time and type with accuracy.</p>
+          </div>
+          <div class="feature-box" data-aos="flip-right">
+            <i class="fas fa-handshake-angle"></i>
+            <h3>Trust First</h3>
+            <p>We connect finders and owners with care, transparency and proof.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="info"  data-aos="flip-right" data-aos-delay="500"  data-aos-duration="800">
+        <h2>How It Works</h2>
+        <div class="steps">
+          <div class="step">
+            <h3>1. Report</h3>
+            <p>Submit details of your lost or found item.</p>
+          </div>
+          <div class="step">
+            <h3>2. Match</h3>
+            <p>Our system matches lost items with found ones.</p>
+          </div>
+          <div class="step">
+            <h3>3. Retrieve</h3>
+            <p>Claim your lost item with verified proof.</p>
+          </div>
+        </div>
+      </section>
+  
+      <section class="team " data-aos="zoom-in-up" data-aos-delay="400">
+        <h2>Our Team</h2>
+        <div class="team-members">
+          <div class="member">
+            <img src="Rewant2.jpg" alt="Team Member" />
+            <h3>Rewant Anand</h3>
+            <h4>IIITD</h4>
+            <p>Team Leader</p>
+          </div>
+          <div class="member">
+            <img src="Tanish1.jpg" alt="Team Member" />
+            <h3>Tanish Bachhas</h3>
+            <h4>IIITD</h4>
+            <p>Team Organiser</p>
+          </div>
+        </div>
+  
+        <div class="contact-btn-container">
+          <button class="contact-btn" onclick="openContactPage()">
+            <span class="spinner"></span> Contact Us
+          </button>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-content">
+          <p>&copy; 2025 <strong>KHOJ</strong> — Reconnecting India with Trust ❤️</p>
+          <p>
+            <a href="about.html">About Us</a> |
+            <a href="contact.html">Contact</a> |
+            <a href="https://theyouthcompany.in/product/khoj/" target="_blank">Invest</a>
+          </p>
+        </div>
+      </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: {
+        delay: 3500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      slidesPerView: 1,
+      spaceBetween: 30,
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      },
+    });
+  </script>
+
+    <!--Functionality Script-->
+
+    <script src="khojai.js"></script>
+    <script>
+      function openContactPage() {
+        let button = document.querySelector(".contact-btn");
+        let spinner = button.querySelector(".spinner");
+        spinner.style.display = "inline-block";
+        setTimeout(() => {
+          window.location.href = "contact.html";
+        }, 1000);
+      }
+
+      document.addEventListener("scroll", function () {
+        document.querySelectorAll(".fade-in").forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          if (sectionTop < window.innerHeight - 50) {
+            section.classList.add("show");
+          }
+        });
+      });
+
+      function toggleMenu() {
+    const navLinks = document.querySelector(".nav-links");
+    const hamburger = document.querySelector(".hamburger");
+    navLinks.classList.toggle("show");
+    hamburger.classList.toggle("active");
+  }
+
+      function checkAuth() {
+        const token = localStorage.getItem("token");
+        const authLink = document.getElementById("authLink");
+        const lostLink = document.getElementById("lostLink");
+        const foundLink = document.getElementById("foundLink");
+        const reportLostBtn = document.getElementById("reportLostBtn");
+        const reportFoundBtn = document.getElementById("reportFoundBtn");
+
+        if (token) {
+          authLink.textContent = "Logout";
+          authLink.href = "#";
+          authLink.onclick = logout;
+        } else {
+          authLink.textContent = "Login";
+          authLink.href = "login.html";
+        }
+
+        if (!token) {
+          lostLink.onclick = () => {
+            alert("You must be logged in to report a lost item.");
+            return false;
+          };
+          foundLink.onclick = () => {
+            alert("You must be logged in to report a found item.");
+            return false;
+          };
+          reportLostBtn.onclick = (e) => {
+            e.preventDefault();
+            alert("You must be logged in to report a lost item.");
+          };
+          reportFoundBtn.onclick = (e) => {
+            e.preventDefault();
+            alert("You must be logged in to report a found item.");
+          };
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem("token");
+        alert("Logged out successfully.");
+        window.location.href = "index.html"; 
+      }
+
+      checkAuth();
+
+      document.getElementById("khojAiBtn").addEventListener("click", () => {
+        recognition.start();
+        speak(
+          "Hello! I am your voice assistant, KHOJ AI! How can I assist you today?"
+        );
+      });
+    </script>
+  </body>
+</html>

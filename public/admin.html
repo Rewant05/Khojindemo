@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KHOJ Admin</title>
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f4f8;
+  color: #333;
+  margin: 0;
+  padding: 2rem;
+}
+
+.admin-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #0f172a;
+  margin-bottom: 2rem;
+}
+
+.admin-section {
+  margin-bottom: 3rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.admin-section h2 {
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #0f172a;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <h1>Admin Dashboard</h1>
+
+    <section class="admin-section">
+      <h2>Users Table</h2>
+      <div id="usersTable">Loading users...</div>
+    </section>
+
+    <section class="admin-section">
+      <h2>Lost Items Table</h2>
+      <div id="lostTable">Loading lost-items...</div>
+    </section>
+
+    <section class="admin-section">
+      <h2>Found Items Table</h2>
+      <div id="foundTable">Loading found-items...</div>
+    </section>
+
+    <section class="admin-section">
+      <h2>Matched Items Table</h2>
+      <div id="matchedTable">Loading matched-items...</div>
+    </section>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+
+    async function fetchData(endpoint, elementId) {
+      try {
+        const res = await fetch(`http://localhost:5000/admin/${endpoint}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!Array.isArray(data)) {
+          document.getElementById(elementId).textContent = "No data available.";
+          return;
+        }
+
+        const table = document.createElement("table");
+        const header = Object.keys(data[0] || {}).map(
+          (key) => `<th>${key}</th>`
+        ).join("");
+        table.innerHTML = `<thead><tr>${header}</tr></thead><tbody>` +
+          data.map(row =>
+            `<tr>${Object.values(row).map(val => `<td>${val}</td>`).join("")}</tr>`
+          ).join("") +
+          `</tbody>`;
+
+        document.getElementById(elementId).innerHTML = "";
+        document.getElementById(elementId).appendChild(table);
+      } catch (err) {
+        document.getElementById(elementId).textContent = `Error loading ${endpoint} data.`;
+      }
+    }
+
+    fetchData("users", "usersTable");
+    fetchData("lost-items", "lostTable");
+    fetchData("found-items", "foundTable");
+    fetchData("matched-items", "matchedTable");
+  </script>
+</body>
+</html>

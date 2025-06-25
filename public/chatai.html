@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KHOJ AI Chat Support</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+    }
+
+    .khoj-chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      max-height: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    .khoj-chat-header {
+      background-color: #0f172a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .khoj-chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+
+    .khoj-chat-message {
+      margin-bottom: 10px;
+    }
+
+    .user-msg {
+      text-align: right;
+      color: #0f172a;
+    }
+
+    .bot-msg {
+      text-align: left;
+      color: #1f2937;
+    }
+
+    .khoj-chat-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-top: 1px solid #ddd;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .khoj-chat-input input {
+      flex: 1 1 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .khoj-chat-input button {
+      flex: 1;
+      min-width: 45%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    #khojAiBtn {
+      background-color: #0f172a;
+      color: #fff;
+    }
+
+    .khoj-chat-input button:last-child {
+      background-color: #ffc947;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="khoj-chatbot">
+    <div class="khoj-chat-header">KHOJ Chat Support</div>
+    <div class="khoj-chat-messages" id="chatMessages"></div>
+    <div class="khoj-chat-input">
+      <input type="text" id="chatInput" placeholder="Type your message..." />
+      <button id="khojAiBtn" class="khoj-ai">KHOJ-AI 🎙️</button>
+      <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script>
+    // Voice assistant setup
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    const synth = window.speechSynthesis;
+
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      synth.speak(utterance);
+    }
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.className = `khoj-chat-message ${sender === 'user' ? 'user-msg' : 'bot-msg'}`;
+      msg.innerText = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function sendMessage() {
+      const message = chatInput.value.trim();
+      if (message === '') return;
+      appendMessage(message, 'user');
+      chatInput.value = '';
+
+      setTimeout(() => {
+        const reply = getBotReply(message.toLowerCase());
+        appendMessage(reply, 'bot');
+        speak(reply);
+      }, 700);
+    }
+
+    function getBotReply(query) {
+      if (query.includes('report lost')) return 'Click on the "Report Lost" button at the top.';
+      if (query.includes('report found')) return 'Click on "Report Found" to submit a found item.';
+      if (query.includes('contact')) return 'You can contact us via the contact page or email support@khoj-in.netlify.app.';
+      if (query.includes('what is khoj')) return 'KHOJ is India’s central lost and found platform.';
+      if (query.includes('safe')) return 'Yes, your data is secure with KHOJ.';
+      return "Sorry, I didn't understand. Can you ask something else?";
+    }
+
+    // Chat on Enter key
+    chatInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Voice assistant button
+    document.getElementById("khojAiBtn").addEventListener("click", () => {
+      recognition.start();
+      speak("Hello! I am your voice assistant, KHOJ AI! How can I assist you today?");
+    });
+
+    recognition.onresult = (event) => {
+      const query = event.results[0][0].transcript.toLowerCase();
+      appendMessage(query, 'user');
+      const reply = getBotReply(query);
+      appendMessage(reply, 'bot');
+      speak(reply);
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      speak("Sorry, I didn't catch that. Please try again.");
+    };
+  </script>
+</body>
+</html>

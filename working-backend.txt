@@ -1,0 +1,228 @@
+const express = require("express");
+const mysql = require("mysql2");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const path = require("path");
+const multer = require("multer");
+
+const app = express();
+const PORT = 5000;
+const SECRET_KEY = "your_secret_key"; // Change this for security
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+// Multer Storage for Image Uploads
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage });
+
+// MySQL Connection
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "Rewant", // Change this for security
+  database: "logindb",
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error("Database connection failed:", err);
+    process.exit(1);
+  }
+  console.log("MySQL Connected...");
+});
+
+// Serve Login Page as Default
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
+
+// User Registration
+app.post("/register", (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  const checkEmailSQL = "SELECT * FROM users WHERE email = ?";
+  db.query(checkEmailSQL, [email], (err, results) => {
+    if (err) return res.status(500).json({ error: "Database error" });
+    if (results.length > 0) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    bcrypt.hash(password, 10, (err, hash) => {
+      if (err) return res.status(500).json({ error: "Password hashing error" });
+
+      const sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+      db.query(sql, [name, email, hash], (err) => {
+        if (err) return res.status(500).json({ error: "Database insert error" });
+        res.status(201).json({ message: "User registered successfully!" });
+      });
+    });
+  });
+});
+
+// User Login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  const sql = "SELECT * FROM users WHERE email = ?";
+  db.query(sql, [email], (err, results) => {
+    if (err) return res.status(500).json({ error: "Database error" });
+    if (results.length === 0) return res.status(401).json({ message: "User not found" });
+
+    bcrypt.compare(password, results[0].password, (err, isMatch) => {
+      if (err) return res.status(500).json({ error: "Password comparison error" });
+      if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
+
+      const token = jwt.sign({ id: results[0].id, email: results[0].email }, SECRET_KEY, { expiresIn: "1h" });
+      res.json({ token, message: "Login successful" });
+    });
+  });
+});
+
+// Middleware for Token Verification
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(403).json({ message: "No token provided" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) return res.status(401).json({ message: "Unauthorized" });
+    req.userId = decoded.id;
+    next();
+  });
+};
+
+//Report found
+app.post("/report-found", verifyToken, upload.single("image"), (req, res) => {
+  const { name, contact, item_name, description, location, date_found } = req.body;
+  const image_url = req.file ? `uploads/${req.file.filename}` : null;
+
+  if (!name || !contact || !item_name || !description || !location || !date_found) {
+    return res.status(400).json({ message: "All fields except image are required" });
+  }
+
+  const sql = "INSERT INTO found_items (name, contact, item_name, description, location, date_found, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [name, contact, item_name, description, location, date_found, image_url], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    const foundItemId = result.insertId;
+
+    // Check for a matching lost item
+    const matchQuery = "SELECT id FROM lost_items WHERE item_name = ? AND description = ? AND location = ?";
+    db.query(matchQuery, [item_name, description, location], (err, lostResults) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Database error during matching" });
+      }
+
+      if (lostResults.length > 0) {
+        const lostItemId = lostResults[0].id;
+        const insertMatch = "INSERT INTO matched_items (lost_item_id, found_item_id) VALUES (?, ?)";
+        db.query(insertMatch, [lostItemId, foundItemId], (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Database error inserting match" });
+          }
+        });
+      }
+    });
+
+    res.json({ message: "Found item reported successfully!", id: foundItemId });
+  });
+});
+
+// Report Lost Item
+app.post("/report-lost", verifyToken, upload.single("image"), (req, res) => {
+  const { name, contact, item_name, description, location, date_lost } = req.body;
+  const image_url = req.file ? `uploads/${req.file.filename}` : null;
+
+  if (!name || !contact || !item_name || !description || !location || !date_lost) {
+    return res.status(400).json({ message: "All fields except image are required" });
+  }
+
+  const sql = "INSERT INTO lost_items (name, contact, item_name, description, location, date_lost, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [name, contact, item_name, description, location, date_lost, image_url], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    const lostItemId = result.insertId;
+
+    // Check for a matching found item
+    const matchQuery = "SELECT id FROM found_items WHERE item_name = ? AND description = ? AND location = ?";
+    db.query(matchQuery, [item_name, description, location], (err, foundResults) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Database error during matching" });
+      }
+
+      if (foundResults.length > 0) {
+        const foundItemId = foundResults[0].id;
+        const insertMatch = "INSERT INTO matched_items (lost_item_id, found_item_id) VALUES (?, ?)";
+        db.query(insertMatch, [lostItemId, foundItemId], (err) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Database error inserting match" });
+          }
+        });
+      }
+    });
+
+    res.json({ message: "Lost item reported successfully!", id: lostItemId });
+  });
+});
+
+
+// Fetch All Reported Found Items
+app.get("/found-items", (req, res) => {
+  const sql = "SELECT * FROM found_items ORDER BY date_found DESC";
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+    res.json(results);
+  });
+});
+
+// Fetch All Reported Lost Items
+app.get("/lost-items", (req, res) => {
+  const sql = "SELECT * FROM lost_items ORDER BY date_lost DESC";
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+    res.json(results);
+  });
+});
+
+// Start Server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

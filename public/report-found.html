@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report Found Item</title>
+    <link rel="icon" type="image/png" href="favicons/favicon_io/favicon-32x32.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="report-lost2.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+    <style>
+      #foundLink{
+        color: #ffd700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-spinner" id="loadingSpinner">
+      <div class="spinner"></div>
+    </div>
+
+    <nav>
+      <div class="logo">
+        <a href="index.html"><i class="fas fa-search"></i> KHOJ</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="report-lost.html" id="lostLink"><i class="fas fa-user-minus"></i> Report Lost</a></li>
+        <li><a href="report-found.html" id="foundLink" class="home1"><i class="fas fa-user-plus"></i> Report Found</a></li>
+        <li><a href="youritem.html"><i class="fas fa-box"></i> Your Items</a></li>
+      </ul>
+    </nav>
+
+    <header class="hero">
+      <h1>Report a Found Item</h1>
+      <p>Submit the details of the found item, and we will help locate its rightful owner.</p>
+    </header>
+
+    <section class="report-form" data-aos="fade-up">
+      <h2>Found Item Details</h2>
+      <form id="foundItemForm" data-aos="zoom-in" data-aos-delay="200">
+        <input type="text" id="name" name="name" placeholder="Your Name" required />
+        <input type="text" id="contact" name="contact" placeholder="Your Contact" required />
+        <input type="text" id="item" name="item_name" placeholder="Item Name" required />
+        <textarea id="description" name="description" rows="4" placeholder="Description" required></textarea>
+        <input type="text" id="location" name="location" placeholder="Location Found" required />
+        <input type="date" id="date" name="date_found" required />
+        <input type="file" id="image" name="image" accept="image/*" />
+        <button type="submit">Submit Report</button>
+      </form>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 <strong>KHOJ</strong> — Reconnecting India with Trust ❤️</p>
+        <p>
+          <a href="about.html">About Us</a> |
+          <a href="contact.html">Contact</a> |
+          <a href="https://theyouthcompany.in/product/khoj/" target="_blank">Invest</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+
+      function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+      }
+
+      function showLoadingSpinner() {
+        document.getElementById("loadingSpinner").style.display = "flex";
+      }
+
+      function hideLoadingSpinner() {
+        document.getElementById("loadingSpinner").style.display = "none";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        showLoadingSpinner();
+        setTimeout(hideLoadingSpinner, 1000);
+      });
+
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          showLoadingSpinner();
+        });
+      });
+
+      document.getElementById("foundItemForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("You must be logged in to submit a report.");
+          return;
+        }
+        showLoadingSpinner();
+        const formData = new FormData(this);
+        const data = {
+          name: formData.get("name"),
+          contact: formData.get("contact"),
+          item_name: formData.get("item_name"),
+          description: formData.get("description"),
+          location: formData.get("location"),
+          date_found: formData.get("date_found"),
+          image_url: null,
+        };
+        const file = formData.get("image");
+        if (file) {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async () => {
+            data.image_url = reader.result;
+            await submitReport(data, token);
+          };
+        } else {
+          await submitReport(data, token);
+        }
+      });
+
+      async function submitReport(data, token) {
+        try {
+          const response = await fetch("http://localhost:5000/report-found", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+          });
+          const result = await response.json();
+          alert(result.message);
+        } catch (error) {
+          alert("Something went wrong. Please try again.");
+        } finally {
+          hideLoadingSpinner();
+        }
+      }
+    </script>
+  </body>
+</html>

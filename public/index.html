@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KHOJ - India's Lost & Found</title>
+    <!-- Meta Description (SEO) -->
+    <meta
+      name="description"
+      content="KHOJ is India's leading lost and found platform, connecting people to lost & found centers nationwide. Report or find lost items easily."
+    />
+
+    <!-- Keywords (SEO) -->
+    <meta
+      name="keywords"
+      content="Lost and Found, Khoj, Report Lost Item, Report Found Item, Find Lost Items, India Lost and Found"
+    />
+
+    <!-- Author -->
+    <meta name="author" content="KHOJ Team" />
+
+    <!-- Open Graph Meta Tags (For social media sharing) -->
+    <meta property="og:title" content="KHOJ - India's Lost & Found Platform" />
+    <meta
+      property="og:description"
+      content="Find what you’ve lost, return what you’ve found. KHOJ helps you reconnect with lost belongings across India."
+    />
+    <meta property="og:image" content="https://khoj-in.netlify.app/logo.png" />
+    <meta property="og:url" content="https://khoj-in.netlify.app/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KHOJ - India's Lost & Found Platform" />
+    <meta
+      name="twitter:description"
+      content="KHOJ connects people with lost & found centers across India. Report lost items and find what you've lost."
+    />
+    <meta name="twitter:image" content="https://khoj-in.netlify.app/logo.png" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicons/favicon_io/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="index2.css">
+
+    <style>
+      .home1{
+        color: #ffd700;
+      }
+
+      body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+    }
+
+    .khoj-chatbot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      max-height: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    .khoj-chat-header {
+      background-color: #0f172a;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .khoj-chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+
+    .khoj-chat-message {
+      margin-bottom: 10px;
+    }
+
+    .user-msg {
+      text-align: right;
+      color: #0f172a;
+    }
+
+    .bot-msg {
+      text-align: left;
+      color: #1f2937;
+    }
+
+    .khoj-chat-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-top: 1px solid #ddd;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .khoj-chat-input input {
+      flex: 1 1 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .khoj-chat-input button {
+      flex: 1;
+      min-width: 45%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    #khojAiBtn {
+      background-color: #0f172a;
+      color: #fff;
+    }
+
+    .khoj-chat-input button:last-child {
+      background-color: #ffc947;
+      color: black;
+    }
+    </style>
+  </head>
+  <body>
+    <nav>
+        <div class="logo">
+          <a href="index.html"><i class="fas fa-search"></i> KHOJ</a>
+        </div>      
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <ul class="nav-links">
+          <li><a href="index.html" class="home1"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="report-lost.html" id="lostLink"><i class="fas fa-user-minus"></i> Report Lost</a></li>
+          <li><a href="report-found.html" id="foundLink"><i class="fas fa-user-plus"></i> Report Found</a></li>
+          <li><a href="youritem.html"><i class="fas fa-box"></i> Your Items</a></li>
+          <li><a href="login.html" id="authLink"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        </ul>      
+      </nav>
+
+    <header>
+      <h1>India's Central Lost & Found Network</h1>
+      <p>Built to reconnect people with their lost belongings — with purpose and tech.</p>
+      <div class="cta-buttons">
+        <button class="btn">Report Lost</button>
+        <button class="btn">Report Found</button>
+      </div>
+    </header>
+
+    <section class="slider">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">📸 Upload clear item pictures for accurate matches</div>
+          <div class="swiper-slide">🧠 Smart AI-powered match engine coming soon</div>
+          <div class="swiper-slide">🔐 Privacy protected - your data stays secure</div>
+          <div class="swiper-slide">🗺️ Geo-tag items to increase visibility and makes tracing easy</div>
+          <div class="swiper-slide">⏱️ Real-time updates when a match is found</div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <section class="features" data-aos="fade-up">
+        <h2>Why Use KHOJ?</h2>
+        <div class="features-grid">
+          <div class="feature-box" data-aos="flip-left">
+            <i class="fas fa-bolt"></i>
+            <h3>Instant Matching</h3>
+            <p>Our system continuously scans for potential item matches.</p>
+          </div>
+          <div class="feature-box" data-aos="flip-right">
+            <i class="fas fa-user-shield"></i>
+            <h3>Secure Identity</h3>
+            <p>Your data is private and encrypted. Always.</p>
+          </div>
+          <div class="feature-box" data-aos="flip-left">
+            <i class="fas fa-location-arrow"></i>
+            <h3>Smart Tracking</h3>
+            <p>Track items based on location, time and type with accuracy.</p>
+          </div>
+          <div class="feature-box" data-aos="flip-right">
+            <i class="fas fa-handshake-angle"></i>
+            <h3>Trust First</h3>
+            <p>We connect finders and owners with care, transparency and proof.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="info"  data-aos="flip-right" data-aos-delay="500"  data-aos-duration="800">
+        <h2>How It Works</h2>
+        <div class="steps">
+          <div class="step">
+            <h3>1. Report</h3>
+            <p>Submit details of your lost or found item.</p>
+          </div>
+          <div class="step">
+            <h3>2. Match</h3>
+            <p>Our system matches lost items with found ones.</p>
+          </div>
+          <div class="step">
+            <h3>3. Retrieve</h3>
+            <p>Claim your lost item with verified proof.</p>
+          </div>
+        </div>
+      </section>
+  
+      <section class="team " data-aos="zoom-in-up" data-aos-delay="400">
+        <h2>Our Team</h2>
+        <div class="team-members">
+          <div class="member">
+            <img src="Rewant2.jpg" alt="Team Member" />
+            <h3>Rewant Anand</h3>
+            <h4>IIITD</h4>
+            <p>Team Leader</p>
+          </div>
+          <div class="member">
+            <img src="Tanish1.jpg" alt="Team Member" />
+            <h3>Tanish Bachhas</h3>
+            <h4>IIITD</h4>
+            <p>Team Organiser</p>
+          </div>
+        </div>
+  
+        <div class="contact-btn-container">
+          <button class="contact-btn" onclick="openContactPage()">
+            <span class="spinner"></span> Contact Us
+          </button>
+        </div>
+      </section>
+
+      <div class="khoj-chatbot">
+        <div class="khoj-chat-header">KHOJ Chat Support</div>
+        <div class="khoj-chat-messages" id="chatMessages"></div>
+        <div class="khoj-chat-input">
+          <input type="text" id="chatInput" placeholder="Type your message..." />
+          <button id="khojAiBtn" class="khoj-ai">KHOJ-AI 🎙️</button>
+          <button id="khojSendBtn">
+            <i class="fas fa-paper-plane"></i>
+          </button>          
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <p>&copy; 2025 <strong>KHOJ</strong> — Reconnecting India with Trust ❤️</p>
+          <p>
+            <a href="about.html">About Us</a> |
+            <a href="contact.html">Contact</a> |
+            <a href="https://theyouthcompany.in/product/khoj/" target="_blank">Invest</a>
+          </p>
+        </div>
+      </footer>
+
+      <script src="khojai.js"></script>
+      <script>
+        // Unique Voice Assistant Setup
+        const khojVoiceRecognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        khojVoiceRecognition.lang = "en-US";
+        khojVoiceRecognition.interimResults = false;
+      
+        const khojVoiceSynth = window.speechSynthesis;
+      
+        const khojChatMessages = document.getElementById("chatMessages");
+        const khojChatInput = document.getElementById("chatInput");
+    
+      
+        function khojAppendMessage(text, sender) {
+          const msg = document.createElement("div");
+          msg.className = `khoj-chat-message ${sender === "user" ? "user-msg" : "bot-msg"}`;
+          msg.innerText = text;
+          khojChatMessages.appendChild(msg);
+          khojChatMessages.scrollTop = khojChatMessages.scrollHeight;
+        }
+      
+        function sendMessageFromAI() {
+          const message = khojChatInput.value.trim();
+          if (message === "") return;
+          khojAppendMessage(message, "user");
+          khojChatInput.value = "";
+      
+          setTimeout(() => {
+            const reply = getKhojBotReply(message.toLowerCase());
+            khojAppendMessage(reply, "bot");
+          }, 700);
+        }
+      
+        function getKhojBotReply(query) {
+          if (["hi", "hello", "hey", "hola"].some((greet) => query.includes(greet)))
+            return "Hey there! 👋 How can I assist you today?";
+          if (query.includes("how are you"))
+            return "I'm feeling awesome and ready to help! What about you? 😊";
+          if (query.includes("who are you"))
+            return "I'm KHOJ AI, your lost & found assistant. Built with code and a heart! ❤️";
+          if (query.includes("your name")) return "You can call me KHOJ AI 🤖";
+          if (query.includes("thank you") || query.includes("thanks"))
+            return "Anytime! Always here for you 💛";
+          if (query.includes("bye"))
+            return "Bye for now! Hope you find what you're looking for. 🫡";
+          if (query.includes("joke"))
+            return "Why don’t programmers like nature? — It has too many bugs! 🐛😂";
+          if (query.includes("another joke"))
+            return "Why was the computer cold? — It left its Windows open! 🪟😆";
+          if (query.includes("are you real"))
+            return "As real as your browser allows me to be! 🧠💡";
+          if (query.includes("what can you do"))
+            return "I can help you report, find, match, or just chill with some jokes. Ask away! 😎";
+          if (query.includes("time"))
+            return `It's currently ${new Date().toLocaleTimeString()} ⏰`;
+          if (query.includes("date"))
+            return `Today is ${new Date().toDateString()} 📅`;
+          if (query.includes("weather"))
+            return "I'm not a weather app yet ☁️ but it's always sunny on KHOJ! ☀️";
+          if (query.includes("report lost"))
+            return 'Click the "Report Lost" button to fill out your item’s details.';
+          if (query.includes("report found"))
+            return 'Found something? Click "Report Found" and help return it!';
+          if (query.includes("my items") || query.includes("my reports"))
+            return 'Log in and go to "Your Items" to see your submitted reports.';
+          if (query.includes("contact"))
+            return "You can contact us via the contact page or email: support@khoj-in.netlify.app";
+          if (query.includes("what is khoj") || query.includes("about khoj"))
+            return "KHOJ is India’s centralized digital lost & found system connecting finders and owners.";
+          if (query.includes("safe") || query.includes("secure"))
+            return "Absolutely. KHOJ encrypts your data and keeps your identity protected.";
+          if (query.includes("how does khoj work"))
+            return "You submit a report, and we try to intelligently match it with what others report!";
+          if (query.includes("login"))
+            return 'Click on the "Login" button at the top right.';
+          if (query.includes("register"))
+            return 'To register, go to the login page and click "Register".';
+          if (query.includes("admin"))
+            return "Access to the admin panel is only granted to verified admins.";
+          if (query.includes("invest"))
+            return "You can invest in KHOJ here: https://theyouthcompany.in/product/khoj/";
+      
+          return "Oops! I didn’t quite catch that. Could you try asking in a different way? 🤔";
+        }
+      
+        khojChatInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") sendMessageFromAI();
+        });
+      
+        document.getElementById("khojAiBtn").addEventListener("click", () => {
+        recognition.start();
+        speak(
+          "Hello! I am your voice assistant, Helper AI! How can I assist you today?"
+        );
+      });
+      
+        khojVoiceRecognition.onresult = (event) => {
+          const query = event.results[0][0].transcript.toLowerCase();
+          khojAppendMessage(query, "user");
+          const reply = getKhojBotReply(query);
+          khojAppendMessage(reply, "bot");
+        };
+      
+        khojVoiceRecognition.onerror = (event) => {
+          console.error("Speech recognition error:", event.error);
+        };
+      </script>
+      
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="swiping.js"></script>
+  <script src="functionalities.js"></script>
+  </body>
+</html>
