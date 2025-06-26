@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql = require("mysql2");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -30,11 +30,13 @@ const upload = multer({ storage });
 
 // MySQL connection
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Rewant",
-  database: "khojdb", 
+  host: "sql12.freesqldatabase.com",
+  user: "sql12787010",
+  password: "BZxnTjmbVk",
+  database: "sql12787010",
+  port: 3306
 });
+
 
 db.connect((err) => {
   if (err) {
