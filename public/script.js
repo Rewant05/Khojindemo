@@ -1,3 +1,5 @@
+const BASE_URL = "https://khojindemo.onrender.com"; // ✅ your live backend URL
+
 async function register() {
     const name = document.getElementById("regName").value;
     const email = document.getElementById("regEmail").value;
@@ -9,7 +11,7 @@ async function register() {
     }
 
     try {
-        const response = await fetch("http://localhost:5000/register", {
+        const response = await fetch(`${BASE_URL}/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, password })
@@ -19,7 +21,7 @@ async function register() {
         alert(data.message);
 
         if (response.ok) {
-            window.location.href = "login.html"; // Redirect to login page after successful registration
+            window.location.href = "login.html";
         }
     } catch (error) {
         console.error("Error:", error);
@@ -37,7 +39,7 @@ async function login() {
     }
 
     try {
-        const response = await fetch("http://localhost:5000/login", {
+        const response = await fetch(`${BASE_URL}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
@@ -50,14 +52,14 @@ async function login() {
             localStorage.setItem("token", data.token);
             localStorage.setItem("userName", data.user.name);
             localStorage.setItem("userEmail", data.user.email);
-        
+
             if (data.user.email === "admin@gmail.com") {
                 window.location.href = "admin.html";
             } else {
                 window.location.href = "index.html";
             }
         }
-        
+
     } catch (error) {
         console.error("Error:", error);
         alert("Login failed! Try again.");
