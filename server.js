@@ -106,17 +106,17 @@ app.post("/login", (req, res) => {
 
 // Report Lost Item (Base64 image from frontend)
 app.post("/report-lost", verifyToken, (req, res) => {
-  const { item_name, description, location, date_lost, image_url } = req.body;
+  const { item_name, description, location, date_lost } = req.body;
   const userId = req.user.id;
 
   if (!item_name || !description || !location || !date_lost)
     return res.status(400).json({ message: "Missing fields" });
 
   const insertLost =
-    "INSERT INTO lost_items (user_id, item_name, description, location, date_lost, image_url) VALUES (?, ?, ?, ?, ?, ?)";
+    "INSERT INTO lost_items (user_id, item_name, description, location, date_lost) VALUES (?, ?, ?, ?, ?)";
   db.query(
     insertLost,
-    [userId, item_name, description, location, date_lost, image_url],
+    [userId, item_name, description, location, date_lost],
     (err, result) => {
       if (err) return res.status(500).json({ message: "Insert error" });
 
@@ -139,19 +139,20 @@ app.post("/report-lost", verifyToken, (req, res) => {
   );
 });
 
+
 // Report Found Item (Base64 image from frontend)
 app.post("/report-found", verifyToken, (req, res) => {
-  const { item_name, description, location, date_found, image_url } = req.body;
+  const { item_name, description, location, date_found } = req.body;
   const userId = req.user.id;
 
   if (!item_name || !description || !location || !date_found)
     return res.status(400).json({ message: "Missing fields" });
 
   const insertFound =
-    "INSERT INTO found_items (user_id, item_name, description, location, date_found, image_url) VALUES (?, ?, ?, ?, ?, ?)";
+    "INSERT INTO found_items (user_id, item_name, description, location, date_found) VALUES (?, ?, ?, ?, ?)";
   db.query(
     insertFound,
-    [userId, item_name, description, location, date_found, image_url],
+    [userId, item_name, description, location, date_found],
     (err, result) => {
       if (err) return res.status(500).json({ message: "Insert error" });
 
@@ -173,6 +174,7 @@ app.post("/report-found", verifyToken, (req, res) => {
     }
   );
 });
+
 
 // Get lost items for a user
 app.get("/user-lost-items", verifyToken, (req, res) => {
