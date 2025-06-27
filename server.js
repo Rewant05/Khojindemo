@@ -10,30 +10,29 @@ const app = express();
 const PORT = 5000;
 const SECRET_KEY = "your_secret_key";
 
-console.log(" Connecting to DB: khojdb ");
-
+// Middleware
 app.use(cors());
-app.use(bodyParser.json({ limit: '10mb' })); // Allow Base64 image data
+app.use(bodyParser.json({ limit: "10mb" }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// MySQL connection
+// DB Connection
 const db = mysql.createConnection({
   host: "sql12.freesqldatabase.com",
   user: "sql12787010",
   password: "BZxnTjmbVk",
   database: "sql12787010",
-  port: 3306
+  port: 3306,
 });
 
 db.connect((err) => {
   if (err) {
-    console.error(" Database connection failed:", err);
+    console.error("❌ Database connection failed:", err);
     process.exit(1);
   }
-  console.log(" MySQL Connected to khojdb");
+  console.log("✅ MySQL Connected to khojdb");
 });
 
-// JWT Token middleware
+// Token Verification
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -48,7 +47,7 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-// Registration
+// Auth Routes
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
@@ -74,7 +73,6 @@ app.post("/register", (req, res) => {
   });
 });
 
-// Login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -104,7 +102,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-// Report Lost Item (Base64 image from frontend)
+// Report Lost Item
 app.post("/report-lost", verifyToken, (req, res) => {
   const { item_name, description, location, date_lost } = req.body;
   const userId = req.user.id;
@@ -125,7 +123,7 @@ app.post("/report-lost", verifyToken, (req, res) => {
       const matchQuery =
         "SELECT id FROM found_items WHERE item_name = ? AND description = ? AND location = ?";
       db.query(matchQuery, [item_name, description, location], (err, matches) => {
-        if (matches.length > 0) {
+        if (!err && matches.length > 0) {
           const foundId = matches[0].id;
           db.query(
             "INSERT INTO matched_items (lost_item_id, found_item_id) VALUES (?, ?)",
@@ -139,8 +137,7 @@ app.post("/report-lost", verifyToken, (req, res) => {
   );
 });
 
-
-// Report Found Item (Base64 image from frontend)
+// Report Found Item
 app.post("/report-found", verifyToken, (req, res) => {
   const { item_name, description, location, date_found } = req.body;
   const userId = req.user.id;
@@ -161,7 +158,7 @@ app.post("/report-found", verifyToken, (req, res) => {
       const matchQuery =
         "SELECT id FROM lost_items WHERE item_name = ? AND description = ? AND location = ?";
       db.query(matchQuery, [item_name, description, location], (err, matches) => {
-        if (matches.length > 0) {
+        if (!err && matches.length > 0) {
           const lostId = matches[0].id;
           db.query(
             "INSERT INTO matched_items (lost_item_id, found_item_id) VALUES (?, ?)",
@@ -175,8 +172,7 @@ app.post("/report-found", verifyToken, (req, res) => {
   );
 });
 
-
-// Get lost items for a user
+// User's Lost Items
 app.get("/user-lost-items", verifyToken, (req, res) => {
   const userId = req.user.id;
   db.query(
@@ -189,6 +185,15 @@ app.get("/user-lost-items", verifyToken, (req, res) => {
   );
 });
 
+// Allow clean URLs like /report-found or /report-lost
+app.get("/report-found", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "report-found.html"));
+});
+app.get("/report-lost", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "report-lost.html"));
+});
+
+// Server Start
 app.listen(PORT, () => {
-  console.log(` Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
