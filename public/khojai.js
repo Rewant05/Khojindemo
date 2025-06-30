@@ -1,3 +1,5 @@
+let isRecognitionRunning = false;
+
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 recognition.lang = 'en-US';
 recognition.interimResults = false;
@@ -7,9 +9,14 @@ const synth = window.speechSynthesis;
 const user1 = JSON.parse(localStorage.getItem("enteredEmail"));
 
 document.getElementById('khojAiBtn').onclick = () => {
+  if (!isRecognitionRunning) {
     recognition.start();
+    isRecognitionRunning = true;
     speak("Hello! I am Helper A I, your voice assistant. How can I assist you today?");
+  }
 };
+
+
 
 recognition.onresult = (event) => {
     const query = event.results[0][0].transcript.toLowerCase();

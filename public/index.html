@@ -64,92 +64,108 @@
       font-family: Arial, sans-serif;
       background: #f0f2f5;
     }
-
     .khoj-chatbot {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 300px;
-      max-height: 500px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      z-index: 9999;
-    }
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 250px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+}
 
-    .khoj-chat-header {
-      background-color: #0f172a;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
+.khoj-chat-header {
+  background-color: #0f172a;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+}
 
-    .khoj-chat-messages {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      background: #f9fafb;
-    }
+.khoj-chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+}
 
-    .khoj-chat-message {
-      margin-bottom: 10px;
-    }
+.khoj-chat-message {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
 
-    .user-msg {
-      text-align: right;
-      color: #0f172a;
-    }
+.user-msg {
+  background-color: #ffc947;
+  color: #0f172a;
+  text-align: right;
+  align-self: flex-end;
+  margin-left: auto;
+}
 
-    .bot-msg {
-      text-align: left;
-      color: #1f2937;
-    }
+.bot-msg {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  text-align: left;
+  align-self: flex-start;
+  margin-right: auto;
+}
 
-    .khoj-chat-input {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      border-top: 1px solid #ddd;
-      padding: 10px;
-      background: #fff;
-    }
+.khoj-chat-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  background: #fff;
+}
 
-    .khoj-chat-input input {
-      flex: 1 1 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      outline: none;
-    }
+.khoj-chat-input input {
+  flex: 1 1 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
 
-    .khoj-chat-input button {
-      flex: 1;
-      min-width: 45%;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
+.khoj-chat-input button {
+  flex: 1;
+  min-width: 45%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
 
-    #khojAiBtn {
-      background-color: #0f172a;
-      color: #fff;
-    }
+#khojAiBtn {
+  background-color: #0f172a;
+  color: #fff;
+}
 
-    .khoj-chat-input button:last-child {
-      background-color: #ffc947;
-      color: black;
-    }
-    nav {
+.khoj-chat-input button:last-child {
+  background-color: #ffc947;
+  color: black;
+}
+
+
+  nav {
   position: relative;
   z-index: 10000; 
 }
+
     </style>
   </head>
   <body>
@@ -293,113 +309,127 @@
         </div>
       </footer>
 
-      <script src="khojai.js"></script>
       <script>
-        // Unique Voice Assistant Setup
-        const khojVoiceRecognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        khojVoiceRecognition.lang = "en-US";
-        khojVoiceRecognition.interimResults = false;
-      
-        const khojVoiceSynth = window.speechSynthesis;
-      
-        const khojChatMessages = document.getElementById("chatMessages");
-        const khojChatInput = document.getElementById("chatInput");
-    
-      
-        function khojAppendMessage(text, sender) {
-          const msg = document.createElement("div");
-          msg.className = `khoj-chat-message ${sender === "user" ? "user-msg" : "bot-msg"}`;
-          msg.innerText = text;
-          khojChatMessages.appendChild(msg);
-          khojChatMessages.scrollTop = khojChatMessages.scrollHeight;
-        }
-      
-        function sendMessageFromAI() {
-          const message = khojChatInput.value.trim();
-          if (message === "") return;
-          khojAppendMessage(message, "user");
-          khojChatInput.value = "";
-      
-          setTimeout(() => {
-            const reply = getKhojBotReply(message.toLowerCase());
-            khojAppendMessage(reply, "bot");
-          }, 700);
-        }
-      
-        function getKhojBotReply(query) {
-          if (["hi", "hello", "hey", "hola"].some((greet) => query.includes(greet)))
-            return "Hey there! 👋 How can I assist you today?";
-          if (query.includes("how are you"))
-            return "I'm feeling awesome and ready to help! What about you? 😊";
-          if (query.includes("who are you"))
-            return "I'm KHOJ AI, your lost & found assistant. Built with code and a heart! ❤️";
-          if (query.includes("your name")) return "You can call me KHOJ AI 🤖";
-          if (query.includes("thank you") || query.includes("thanks"))
-            return "Anytime! Always here for you 💛";
-          if (query.includes("bye"))
-            return "Bye for now! Hope you find what you're looking for. 🫡";
-          if (query.includes("joke"))
-            return "Why don’t programmers like nature? — It has too many bugs! 🐛😂";
-          if (query.includes("another joke"))
-            return "Why was the computer cold? — It left its Windows open! 🪟😆";
-          if (query.includes("are you real"))
-            return "As real as your browser allows me to be! 🧠💡";
-          if (query.includes("what can you do"))
-            return "I can help you report, find, match, or just chill with some jokes. Ask away! 😎";
-          if (query.includes("time"))
-            return `It's currently ${new Date().toLocaleTimeString()} ⏰`;
-          if (query.includes("date"))
-            return `Today is ${new Date().toDateString()} 📅`;
-          if (query.includes("weather"))
-            return "I'm not a weather app yet ☁️ but it's always sunny on KHOJ! ☀️";
-          if (query.includes("report lost"))
-            return 'Click the "Report Lost" button to fill out your item’s details.';
-          if (query.includes("report found"))
-            return 'Found something? Click "Report Found" and help return it!';
-          if (query.includes("my items") || query.includes("my reports"))
-            return 'Log in and go to "Your Items" to see your submitted reports.';
-          if (query.includes("contact"))
-            return "You can contact us via the contact page or email: support@khoj-in.netlify.app";
-          if (query.includes("what is khoj") || query.includes("about khoj"))
-            return "KHOJ is India’s centralized digital lost & found system connecting finders and owners.";
-          if (query.includes("safe") || query.includes("secure"))
-            return "Absolutely. KHOJ encrypts your data and keeps your identity protected.";
-          if (query.includes("how does khoj work"))
-            return "You submit a report, and we try to intelligently match it with what others report!";
-          if (query.includes("login"))
-            return 'Click on the "Login" button at the top right.';
-          if (query.includes("register"))
-            return 'To register, go to the login page and click "Register".';
-          if (query.includes("admin"))
-            return "Access to the admin panel is only granted to verified admins.";
-          if (query.includes("invest"))
-            return "You can invest in KHOJ here: https://theyouthcompany.in/product/khoj/";
-      
-          return "Oops! I didn’t quite catch that. Could you try asking in a different way? 🤔";
-        }
-      
-        khojChatInput.addEventListener("keypress", function (e) {
-          if (e.key === "Enter") sendMessageFromAI();
-        });
-      
-        document.getElementById("khojAiBtn").addEventListener("click", () => {
-        recognition.start();
-        speak(
-          "Hello! I am your voice assistant, Helper AI! How can I assist you today?"
-        );
-      });
-      
-        khojVoiceRecognition.onresult = (event) => {
-          const query = event.results[0][0].transcript.toLowerCase();
-          khojAppendMessage(query, "user");
-          const reply = getKhojBotReply(query);
-          khojAppendMessage(reply, "bot");
-        };
-      
-        khojVoiceRecognition.onerror = (event) => {
-          console.error("Speech recognition error:", event.error);
-        };
-      </script>
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+
+  const synth = window.speechSynthesis;
+  let isRecognizing = false;
+
+  const chatMessages = document.getElementById("chatMessages");
+  const chatInput = document.getElementById("chatInput");
+  const sendBtn = document.getElementById("khojSendBtn");
+  const voiceBtn = document.getElementById("khojAiBtn");
+
+  // Append message with styling
+  function khojAppendMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("khoj-chat-message");
+    msg.classList.add(sender === "user" ? "user-msg" : "bot-msg");
+    msg.innerText = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function speak(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    synth.speak(utterance);
+    khojAppendMessage(text, "bot");
+  }
+
+  function executeCommand(query) {
+    khojAppendMessage(query, "user"); // Show user command
+    query = query.toLowerCase();
+
+    setTimeout(() => {
+      if (query.includes('wikipedia')) {
+        speak('Searching Wikipedia...');
+        const searchTerm = query.replace('wikipedia', '').trim();
+        window.open(`https://en.wikipedia.org/wiki/${searchTerm}`, '_blank');
+        speak(`Here is what I found about ${searchTerm} on Wikipedia.`);
+      } else if (query.includes('open youtube')) {
+        speak('Opening YouTube.');
+        window.open('https://www.youtube.com', '_blank');
+      } else if (query.includes('open google')) {
+        speak('Opening Google.');
+        window.open('https://www.google.com', '_blank');
+      } else if (query.includes('play music')) {
+        speak('Playing your favorite music.');
+        window.open('https://www.spotify.com', '_blank');
+      } else if (query.includes('the time')) {
+        const now = new Date();
+        const time = now.toLocaleTimeString();
+        speak(`The time is ${time}.`);
+      } else if (query.includes('search')) {
+        const searchTerm = query.replace('search', '').trim();
+        speak(`Searching Google for ${searchTerm}.`);
+        window.open(`https://www.google.com/search?q=${searchTerm}`, '_blank');
+      } else if (query.includes('bye') || query.includes('bye-bye')) {
+        speak('Goodbye! Have a nice day!');
+      } else if (query.includes('what is your name')) {
+        speak(`My name is RECLO AI, here to help you.`);
+      } else if (query.includes('how to report a lost item')) {
+        speak("To report a lost item, visit our website and click on 'Report Lost'.");
+      } else if (query.includes('how to report a found item')) {
+        speak("If you've found an item, click on 'Report Found' on our website.");
+      } else if (query.includes('how does RECLO work')) {
+        speak("RECLO connects people who lost items with those who found them.");
+      } else if (query.includes('is RECLO safe')) {
+        speak("Yes, RECLO ensures privacy and secure handling of your reports.");
+      } else if (query.includes('how do i contact RECLO')) {
+        speak("You can contact us via the contact page or support@RECLO-in.netlify.app.");
+      } else if (query.includes('where can i see my reports')) {
+        speak("Log into your RECLO account and go to 'Your Items'.");
+      } else if (query.includes('hi') || query.includes('hey')) {
+        speak('Hey!! how are you?!');}
+      else {
+        speak("I'm sorry, I didn't understand that. Please try again.");
+      }
+    }, 500);
+  }
+
+  // Handle voice input
+  voiceBtn.onclick = () => {
+    if (!isRecognizing) {
+      recognition.start();
+      isRecognizing = true;
+      speak("Hello! I am Helper A I, your voice assistant. How can I assist you today?");
+    }
+  };
+
+  recognition.onresult = (event) => {
+    const query = event.results[0][0].transcript;
+    executeCommand(query);
+  };
+
+  recognition.onspeechend = () => {
+    recognition.stop();
+    isRecognizing = false;
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Speech recognition error:", event.error);
+    speak("Sorry, I didn't catch that. Please try again.");
+    isRecognizing = false;
+  };
+
+  // Handle manual Send button
+  sendBtn.onclick = () => {
+    const query = chatInput.value.trim();
+    if (query) {
+      executeCommand(query);
+      chatInput.value = '';
+    }
+  };
+
+  // Optional: enter key for input
+  chatInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      sendBtn.click();
+    }
+  });
+</script>
       
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
