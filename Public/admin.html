@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — KHOJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-bg"></div>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+<span class="brand-mark">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+  </svg>
+</span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="">Report Lost</a>
+        <a href="report-found.html" class="">Report Found</a>
+        <a href="dashboard.html" class="">Dashboard</a>
+        <a href="contact.html" class="">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+      <div class="mobile-panel container">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="report-lost.html">Report Lost</a>
+        <a href="report-found.html">Report Found</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="admin.html">Admin</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Create account</a>
+      </div>
+
+  </header>
+
+  <main>
+    <section class="page-hero container">
+      <div class="page-hero-copy reveal">
+        <div class="page-badge">Operations dashboard</div>
+        <h1>An admin panel for <span>review and oversight.</span></h1>
+        <p>Judges and users trust products more when they see there is an operational view behind the reporting flow. This page gives you that layer.</p>
+        <div class="page-hero-actions"><a class="btn btn-primary" href="dashboard.html">User dashboard</a><a class="btn btn-secondary" href="index.html">Homepage</a></div>
+      </div>
+    </section>
+
+
+<section class="dashboard-shell container">
+  <div class="dashboard-stats reveal">
+    <div class="dashboard-stat"><strong>128</strong><span>users</span></div>
+    <div class="dashboard-stat"><strong>49</strong><span>lost reports</span></div>
+    <div class="dashboard-stat"><strong>37</strong><span>found reports</span></div>
+    <div class="dashboard-stat"><strong>12</strong><span>matched pairs</span></div>
+  </div>
+
+  <div class="table-card reveal">
+    <header>
+      <div>
+        <h3>Admin overview</h3>
+        <p>This page is designed for admin review, center operations, and reporting visibility.</p>
+      </div>
+      <a href="#" class="btn btn-secondary">Export later</a>
+    </header>
+
+    <div class="table-shell">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Item</th>
+            <th>User</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lost</td>
+            <td>Wallet</td>
+            <td>rewant@gmail.com</td>
+            <td>Kashmere Gate Metro</td>
+            <td><span class="warning-chip">Pending</span></td>
+            <td>05 Apr 2026</td>
+          </tr>
+          <tr>
+            <td>Found</td>
+            <td>Wallet</td>
+            <td>admin@khoj.in</td>
+            <td>Kashmere Gate Metro</td>
+            <td><span class="success-chip">Matched</span></td>
+            <td>06 Apr 2026</td>
+          </tr>
+          <tr>
+            <td>Lost</td>
+            <td>ID Card</td>
+            <td>user@iiitd.ac.in</td>
+            <td>IIIT Delhi</td>
+            <td><span class="success-chip">Found</span></td>
+            <td>04 Apr 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="dashboard-layout" style="margin-top:20px;">
+    <div class="glass-card admin-card reveal">
+      <h2>What to connect later</h2>
+      <div class="check-list">
+        <div>/admin/users</div>
+        <div>/admin/lost-items</div>
+        <div>/admin/found-items</div>
+        <div>/admin/matched-items</div>
+      </div>
+    </div>
+
+    <div class="glass-card admin-card reveal delay-1">
+      <h2>Best admin actions</h2>
+      <div class="check-list">
+        <div>Review high-confidence matches</div>
+        <div>Mark item as claimed or returned</div>
+        <div>Inspect suspicious or duplicate reports</div>
+        <div>View user and center activity</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+
+<span class="brand-mark footer-brand-mark">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+  </svg>
+</span>
+
+          <span class="footer-brand-copy">
+            <strong>KHOJ</strong>
+            <small>India's centralized lost &amp; found network</small>
+          </span>
+        </a>
+        <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <a href="report-lost.html">Report lost item</a>
+        <a href="report-found.html">Report found item</a>
+        <a href="dashboard.html">Track matches</a>
+        <a href="about.html#partners">Partner centers</a>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <a href="about.html#team">Team</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="about.html">About us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:hello@khoj.in">hello@khoj.in</a>
+        <a href="admin.html">Admin panel</a>
+        <span id="year-line"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

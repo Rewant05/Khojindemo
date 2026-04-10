@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — KHOJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+  .login-info-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.login-info-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(37,99,235,0.10), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(15,118,110,0.10), transparent 24%);
+  pointer-events: none;
+}
+
+.login-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.mini-feature-card {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.75);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mini-feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
+}
+
+.mini-feature-card h4 {
+  margin: 10px 0 6px;
+  font-size: 1rem;
+}
+
+.mini-feature-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.mini-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  font-size: 1.1rem;
+}
+
+.login-trust-bar {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid var(--line);
+}
+
+.trust-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.trust-progress {
+  height: 10px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.trust-progress-fill {
+  width: 86%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #0f766e);
+  animation: pulseBar 2.4s ease-in-out infinite;
+}
+
+@keyframes pulseBar {
+  0%, 100% { width: 82%; }
+  50% { width: 90%; }
+}
+
+@media (max-width: 640px) {
+  .login-benefit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<body>
+  <div class="page-bg"></div>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="">Report Lost</a>
+        <a href="report-found.html" class="">Report Found</a>
+        <a href="dashboard.html" class="">Dashboard</a>
+        <a href="contact.html" class="">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+    <div class="mobile-panel container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="report-lost.html">Report Lost</a>
+      <a href="report-found.html">Report Found</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Create account</a>
+    </div>
+
+  </header>
+
+  <main>
+    <section class="page-hero container">
+      <div class="page-hero-copy reveal">
+        <div class="page-badge">Access your dashboard</div>
+        <h1>Login to your <span>KHOJ account.</span></h1>
+        <p>Clean authentication matters because it makes the product feel real and trustworthy even before the backend
+          is connected.</p>
+        <div class="page-hero-actions"><a class="btn btn-primary" href="register.html">Create account</a><a
+            class="btn btn-secondary" href="index.html">Back to home</a></div>
+      </div>
+    </section>
+
+
+    <section class="auth-shell container">
+      <div class="auth-grid">
+        <div class="glass-card auth-card reveal">
+          <h2>Welcome back to KHOJ</h2>
+          <p class="muted">Use this page for your real login later. Right now it is fully designed and ready to connect
+            with Express.</p>
+
+          <form id="loginForm" class="form-grid" style="margin-top:24px;">
+            <div class="form-group full-width">
+              <label for="loginEmail">Email address</label>
+              <input id="loginEmail" name="email" type="email" placeholder="Enter your email" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="loginPassword">Password</label>
+              <input id="loginPassword" name="password" type="password" placeholder="Enter your password" />
+            </div>
+
+            <div class="form-group full-width">
+              <button class="btn btn-primary full" type="submit">Login to dashboard</button>
+            </div>
+          </form>
+
+          <p class="helper" style="margin-top:16px;">Don’t have an account yet? <a href="register.html"
+              style="color:var(--accent); text-decoration:none;">Create one here</a>.</p>
+        </div>
+
+        <div class="glass-card auth-card reveal delay-1 login-info-card">
+  <span class="section-badge">Secure access</span>
+  <h2>Your KHOJ account unlocks your recovery journey.</h2>
+  <p class="muted">
+    Login gives users a personal dashboard to track reports, monitor matches, and manage recovery updates in one place.
+  </p>
+
+  <div class="login-benefit-grid" style="margin-top:22px;">
+    <div class="mini-feature-card">
+      <div class="mini-icon">🔒</div>
+      <h4>Protected access</h4>
+      <p>Session-based login for user-specific reporting and tracking.</p>
+    </div>
+
+    <div class="mini-feature-card">
+      <div class="mini-icon">📍</div>
+      <h4>Track reports</h4>
+      <p>View your lost and found reports in one clean dashboard.</p>
+    </div>
+
+    <div class="mini-feature-card">
+      <div class="mini-icon">🔎</div>
+      <h4>Match updates</h4>
+      <p>Get visibility into possible matches and next steps.</p>
+    </div>
+
+    <div class="mini-feature-card">
+      <div class="mini-icon">✅</div>
+      <h4>Verified workflow</h4>
+      <p>Move from report to recovery with clearer ownership checks.</p>
+    </div>
+  </div>
+
+  <div class="login-trust-bar" style="margin-top:24px;">
+    <div class="trust-row">
+      <span>Account status</span>
+      <strong>Ready</strong>
+    </div>
+    <div class="trust-progress">
+      <div class="trust-progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="notice" style="margin-top:24px;">
+    Login is the starting point for user-specific reports, dashboard tracking, and future match notifications.
+  </div>
+</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+
+          <span class="brand-mark footer-brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
+
+          <span class="footer-brand-copy">
+            <strong>KHOJ</strong>
+            <small>India's centralized lost &amp; found network</small>
+          </span>
+        </a>
+        <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <a href="report-lost.html">Report lost item</a>
+        <a href="report-found.html">Report found item</a>
+        <a href="dashboard.html">Track matches</a>
+        <a href="about.html#partners">Partner centers</a>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <a href="about.html#team">Team</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="about.html">About us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:hello@khoj.in">hello@khoj.in</a>
+        <a href="admin.html">Admin panel</a>
+        <span id="year-line"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

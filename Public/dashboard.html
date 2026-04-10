@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — KHOJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="page-bg"></div>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="">Report Lost</a>
+        <a href="report-found.html" class="">Report Found</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="contact.html" class="">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary" id="navUserBtn">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+    <div class="mobile-panel container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="report-lost.html">Report Lost</a>
+      <a href="report-found.html">Report Found</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" id="mobileNavUserBtn">Login</a>
+      <a href="register.html">Create account</a>
+    </div>
+
+  </header>
+
+  <main>
+    <section class="page-hero container">
+      <div class="page-hero-copy reveal">
+        <div class="page-badge">User status view</div>
+        <h1>A user dashboard that feels <span>product-grade.</span></h1>
+        <p>This page is designed to show reports, statuses, and likely matches in a simple, useful way. Later you’ll
+          connect it directly to your Express APIs.</p>
+
+        <div class="notice" style="margin-top:20px;">
+          Logged in as: <strong id="dashboardUserName">Guest</strong>
+          <br>
+          Email: <span id="dashboardUserEmail">Not available</span>
+        </div>
+
+        <div class="page-hero-actions">
+          <a class="btn btn-primary" href="report-lost.html">Report new lost item</a>
+          <a class="btn btn-secondary" href="report-found.html">Report found item</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="dashboard-shell container">
+      <div class="dashboard-stats reveal">
+        <div class="dashboard-stat"><strong id="lostCount">0</strong><span>lost reports</span></div>
+        <div class="dashboard-stat"><strong id="foundCount">0</strong><span>found reports</span></div>
+        <div class="dashboard-stat"><strong id="matchCount">0</strong><span>active matches</span></div>
+        <div class="dashboard-stat"><strong id="userNameStat">-</strong><span>current user</span></div>
+      </div>
+
+      <div class="dashboard-layout">
+        <div class="glass-card dashboard-card reveal">
+          <h2>Your recent lost items</h2>
+          <p class="muted">Later these cards will be loaded from <strong>/user-lost-items</strong>.</p>
+
+          <div id="lostItemsContainer" class="list-stack" style="margin-top:24px;">
+            <div class="notice">Loading your lost items...</div>
+          </div>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+
+          <span class="brand-mark footer-brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
+
+          <span class="footer-brand-copy">
+            <strong>KHOJ</strong>
+            <small>India's centralized lost &amp; found network</small>
+          </span>
+        </a>
+        <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <a href="report-lost.html">Report lost item</a>
+        <a href="report-found.html">Report found item</a>
+        <a href="dashboard.html">Track matches</a>
+        <a href="about.html#partners">Partner centers</a>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <a href="about.html#team">Team</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="about.html">About us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:hello@khoj.in">hello@khoj.in</a>
+        <a href="admin.html">Admin panel</a>
+        <span id="year-line"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

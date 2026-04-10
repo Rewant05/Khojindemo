@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Lost Item — KHOJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+  .khoj-assistant-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.khoj-assistant-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(37,99,235,0.10), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(15,118,110,0.10), transparent 24%);
+  pointer-events: none;
+}
+
+.assistant-ok {
+  color: #166534;
+  font-weight: 600;
+}
+
+.assistant-warn {
+  color: #b45309;
+  font-weight: 600;
+}
+
+.assistant-strong {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+</style>
+<body>
+  <div class="page-bg"></div>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="active">Report Lost</a>
+        <a href="report-found.html" class="">Report Found</a>
+        <a href="dashboard.html" class="">Dashboard</a>
+        <a href="contact.html" class="">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary" id="navUserBtn">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+    <div class="mobile-panel container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="report-lost.html">Report Lost</a>
+      <a href="report-found.html">Report Found</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" id="mobileNavUserBtn">Login</a>
+      <a href="register.html">Create account</a>
+    </div>
+
+  </header>
+
+  <main>
+    <section class="page-hero container">
+      <div class="page-hero-copy reveal">
+        <div class="page-badge">Guided reporting flow</div>
+        <h1>Report a <span>lost item</span> with confidence.</h1>
+        <p>This page should feel easy under stress. Strong structure and calm design matter more here than visual
+          gimmicks.</p>
+        <div class="page-hero-actions"><a class="btn btn-primary" href="dashboard.html">View dashboard</a><a
+            class="btn btn-secondary" href="report-found.html">Report found item instead</a></div>
+      </div>
+    </section>
+
+
+    <section class="form-shell container">
+      <div class="dashboard-layout">
+        <div class="glass-card form-card reveal">
+          <h2>Report a lost item</h2>
+          <p class="muted">This is one of the most important pages in the product, so it should feel calm, guided, and
+            reliable.</p>
+
+          <form id="lostForm" class="form-grid" style="margin-top:24px;">
+            <div class="form-group">
+              <label for="item_name">Item name</label>
+              <input id="item_name" name="item_name" type="text" placeholder="e.g. Wallet, phone, ID card" />
+            </div>
+
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select id="category" name="category">
+                <option>Wallet / Purse</option>
+                <option>Phone / Electronics</option>
+                <option>Bag / Luggage</option>
+                <option>ID / Document</option>
+                <option>Jewelry / Accessories</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="date_lost">Approx. date lost</label>
+              <input id="date_lost" name="date_lost" type="date" />
+            </div>
+
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input id="location" name="location" type="text" placeholder="e.g. Kashmere Gate Metro, IIITD campus" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="description">Description</label>
+              <textarea id="description" name="description"
+                placeholder="Add identifying details like color, brand, scratches, contents, or any unique features."></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="image">Upload item image (optional but recommended)</label>
+              <div class="file-drop">
+                <input id="image" name="image" class="file-input" data-preview="lost-file-preview" type="file" />
+                <p class="helper" id="lost-file-preview" style="margin:12px 0 0;">No file selected yet.</p>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <button id="lostSubmitBtn" class="btn btn-primary full" type="submit">Submit lost item report</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="glass-card form-card reveal delay-1 khoj-assistant-card">
+          <span class="section-badge">KHOJ Assistant</span>
+          <h2>Build a stronger lost-item report</h2>
+          <p class="muted">
+            The better your report, the easier it becomes to match it with found-item entries.
+          </p>
+
+          <div class="assistant-meter-wrap" style="margin-top:20px;">
+            <div class="assistant-meter-head"
+              style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+              <strong>Report strength</strong>
+              <span id="assistantScoreText">0%</span>
+            </div>
+
+            <div class="assistant-meter"
+              style="margin-top:10px;height:12px;border-radius:999px;background:#e2e8f0;overflow:hidden;">
+              <div id="assistantProgressBar"
+                style="height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#0f766e);transition:width .3s ease;">
+              </div>
+            </div>
+          </div>
+
+          <div class="notice" id="assistantStatus" style="margin-top:20px;">
+            Start filling the form to improve match chances.
+          </div>
+
+          <div id="assistantChecklist" class="check-list" style="margin-top:20px;">
+            <div id="check-item">❌ Add a clear item name</div>
+            <div id="check-location">❌ Add the place where it was lost</div>
+            <div id="check-description">❌ Add a useful description</div>
+            <div id="check-image">❌ Upload an image if available</div>
+          </div>
+
+          <div class="notice" id="assistantTipBox" style="margin-top:20px;">
+            Tip: Mention color, brand, scratches, contents, and where you last saw the item.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+
+          <span class="brand-mark footer-brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
+
+          <span class="footer-brand-copy">
+            <strong>KHOJ</strong>
+            <small>India's centralized lost &amp; found network</small>
+          </span>
+        </a>
+        <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <a href="report-lost.html">Report lost item</a>
+        <a href="report-found.html">Report found item</a>
+        <a href="dashboard.html">Track matches</a>
+        <a href="about.html#partners">Partner centers</a>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <a href="about.html#team">Team</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="about.html">About us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:hello@khoj.in">hello@khoj.in</a>
+        <a href="admin.html">Admin panel</a>
+        <span id="year-line"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function initLostFormAssistant() {
+  const form = document.getElementById("lostForm");
+  if (!form) return;
+
+  const item = document.getElementById("item_name");
+  const location = document.getElementById("location");
+  const desc = document.getElementById("description");
+  const image = document.getElementById("image");
+
+  const status = document.getElementById("assistantStatus");
+  const scoreText = document.getElementById("assistantScoreText");
+  const progressBar = document.getElementById("assistantProgressBar");
+  const tipBox = document.getElementById("assistantTipBox");
+
+  const checkItem = document.getElementById("check-item");
+  const checkLocation = document.getElementById("check-location");
+  const checkDescription = document.getElementById("check-description");
+  const checkImage = document.getElementById("check-image");
+
+  if (!item || !location || !desc || !image || !status || !scoreText || !progressBar || !tipBox) {
+    return;
+  }
+
+  function mark(el, done, doneText, pendingText) {
+    if (!el) return;
+    el.textContent = done ? `✅ ${doneText}` : `❌ ${pendingText}`;
+    el.className = done ? "assistant-ok" : "";
+  }
+
+  function updateAssistant() {
+    const itemOk = item.value.trim().length >= 3;
+    const locationOk = location.value.trim().length >= 3;
+    const descOk = desc.value.trim().length >= 15;
+    const imageOk = image.files && image.files.length > 0;
+
+    let score = 0;
+    if (itemOk) score += 25;
+    if (locationOk) score += 25;
+    if (descOk) score += 30;
+    if (imageOk) score += 20;
+
+    scoreText.textContent = `${score}%`;
+    progressBar.style.width = `${score}%`;
+
+    mark(checkItem, itemOk, "Item name looks good", "Add a clear item name");
+    mark(checkLocation, locationOk, "Location is added", "Add the place where it was lost");
+    mark(checkDescription, descOk, "Description is detailed enough", "Add a useful description");
+    mark(checkImage, imageOk, "Image uploaded", "Upload an image if available");
+
+    if (score === 0) {
+      status.textContent = "Start filling the form to improve match chances.";
+      status.className = "notice";
+      tipBox.textContent = "Tip: Mention color, brand, scratches, contents, and where you last saw the item.";
+    } else if (score <= 25) {
+      status.textContent = "Basic start — add more details to make the report more useful.";
+      status.className = "notice assistant-warn";
+      tipBox.textContent = "Best next step: add location and a specific description.";
+    } else if (score <= 55) {
+      status.textContent = "Decent progress — your report is becoming more searchable.";
+      status.className = "notice assistant-warn";
+      tipBox.textContent = "Try adding identifying details like brand, color, or visible damage.";
+    } else if (score <= 80) {
+      status.textContent = "Strong report — this should help matching significantly.";
+      status.className = "notice assistant-strong";
+      tipBox.textContent = "Adding an image can improve confidence even more.";
+    } else {
+      status.textContent = "Excellent report — high chance of easier identification and matching.";
+      status.className = "notice assistant-ok";
+      tipBox.textContent = "Great job. Your report is detailed, structured, and match-friendly.";
+    }
+  }
+
+  item.addEventListener("input", updateAssistant);
+  location.addEventListener("input", updateAssistant);
+  desc.addEventListener("input", updateAssistant);
+  image.addEventListener("change", updateAssistant);
+
+  updateAssistant();
+}
+    initLostFormAssistant();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — KHOJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+  .contact-canvas-card {
+  overflow: hidden;
+}
+
+.contact-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(20,184,166,0.16), transparent 28%),
+    linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.contact-canvas-wrap canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.canvas-overlay-tag {
+  position: absolute;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.65);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  pointer-events: none;
+}
+
+.tag-user {
+  top: 20px;
+  left: 18px;
+  background: rgba(219, 234, 254, 0.88);
+  color: #1d4ed8;
+}
+
+.tag-center {
+  top: 24px;
+  right: 18px;
+  background: rgba(220, 252, 231, 0.88);
+  color: #166534;
+}
+
+.tag-match {
+  bottom: 22px;
+  left: 22px;
+  background: rgba(254, 243, 199, 0.88);
+  color: #a16207;
+}
+
+.tag-recover {
+  bottom: 22px;
+  right: 20px;
+  background: rgba(224, 231, 255, 0.88);
+  color: #4338ca;
+}
+
+@media (max-width: 640px) {
+  .contact-canvas-wrap {
+    height: 280px;
+  }
+
+  .canvas-overlay-tag {
+    font-size: 0.72rem;
+    padding: 7px 10px;
+  }
+}
+</style>
+<body>
+  <div class="page-bg"></div>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="">Report Lost</a>
+        <a href="report-found.html" class="">Report Found</a>
+        <a href="dashboard.html" class="">Dashboard</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+    <div class="mobile-panel container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="report-lost.html">Report Lost</a>
+      <a href="report-found.html">Report Found</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Create account</a>
+    </div>
+
+  </header>
+
+  <main>
+    <section class="page-hero container">
+      <div class="page-hero-copy reveal">
+        <div class="page-badge">Support and partnership contact</div>
+        <h1>Let users, partners, and judges <span>reach out clearly.</span></h1>
+        <p>A strong contact page helps KHOJ feel more complete and makes it easier for people to engage after seeing the
+          product or pitch.</p>
+        <div class="page-hero-actions"><a class="btn btn-primary" href="about.html">Learn about KHOJ</a><a
+            class="btn btn-secondary" href="index.html">Homepage</a></div>
+      </div>
+    </section>
+
+
+    <section class="contact-shell container">
+      <div class="contact-grid">
+        <article class="info-card reveal">
+          <div class="icon-circle">✉</div>
+          <h3>Email</h3>
+          <p>Use this section for support, partnerships, and pitch follow-up.</p>
+          <a href="mailto:hello@khoj.in" style="text-decoration:none; color:var(--accent);">hello@khoj.in</a>
+        </article>
+        <article class="info-card reveal delay-1">
+          <div class="icon-circle">🤝</div>
+          <h3>Partnerships</h3>
+          <p>For campuses, stations, events, or organizations interested in using KHOJ.</p>
+          <span class="helper">Partner onboarding page can be added later.</span>
+        </article>
+        <article class="info-card reveal delay-2">
+          <div class="icon-circle">🚀</div>
+          <h3>Startup inquiries</h3>
+          <p>Use this for demo day, showcase, investor, and event follow-up communication.</p>
+          <span class="helper">You can later add a Typeform or backend contact route.</span>
+        </article>
+      </div>
+
+      <div class="dashboard-layout" style="margin-top:20px;">
+        <div class="glass-card form-card reveal">
+          <h2>Send a message</h2>
+          <p class="muted">This is a polished contact form that you can later connect to email or an API.</p>
+
+          <form class="form-grid" style="margin-top:24px;">
+            <div class="form-group">
+              <label>Your name</label>
+              <input type="text" placeholder="Enter your name" />
+            </div>
+            <div class="form-group">
+              <label>Email address</label>
+              <input type="email" placeholder="Enter your email" />
+            </div>
+            <div class="form-group full-width">
+              <label>Subject</label>
+              <input type="text" placeholder="Partnership, support, investor inquiry, etc." />
+            </div>
+            <div class="form-group full-width">
+              <label>Message</label>
+              <textarea placeholder="Tell us how you want to collaborate or what support you need."></textarea>
+            </div>
+            <div class="form-group full-width">
+              <button class="btn btn-primary full" type="button">Send message</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="glass-card info-card reveal delay-1 contact-canvas-card">
+          <span class="section-badge">Connected ecosystem</span>
+          <h3>How people, centers, and institutions connect through KHOJ</h3>
+          <p class="muted" style="margin-bottom:18px;">
+            A visual layer for users, transport hubs, campuses, and recovery points working together in one trusted
+            network.
+          </p>
+
+          <div class="contact-canvas-wrap">
+            <canvas id="contactNetworkCanvas"></canvas>
+
+            <div class="canvas-overlay-tag tag-user">User Report</div>
+            <div class="canvas-overlay-tag tag-center">Center</div>
+            <div class="canvas-overlay-tag tag-match">Match</div>
+            <div class="canvas-overlay-tag tag-recover">Recovery</div>
+          </div>
+
+          <div class="notice" style="margin-top:20px;">
+            This animation represents KHOJ’s future network of users, reports, institutions, and recovery workflows.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+
+          <span class="brand-mark footer-brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
+
+          <span class="footer-brand-copy">
+            <strong>KHOJ</strong>
+            <small>India's centralized lost &amp; found network</small>
+          </span>
+        </a>
+        <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <a href="report-lost.html">Report lost item</a>
+        <a href="report-found.html">Report found item</a>
+        <a href="dashboard.html">Track matches</a>
+        <a href="about.html#partners">Partner centers</a>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <a href="about.html#team">Team</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="about.html">About us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:hello@khoj.in">hello@khoj.in</a>
+        <a href="admin.html">Admin panel</a>
+        <span id="year-line"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function initContactNetworkCanvas() {
+  const canvas = document.getElementById("contactNetworkCanvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  let animationFrame;
+  let particles = [];
+  let pulses = [];
+  let width = 0;
+  let height = 0;
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    width = rect.width;
+    height = rect.height;
+    canvas.width = rect.width * window.devicePixelRatio;
+    canvas.height = rect.height * window.devicePixelRatio;
+    ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+
+    createParticles();
+  }
+
+  function createParticles() {
+    particles = [
+      { x: width * 0.15, y: height * 0.25, vx: 0.18, vy: 0.14, r: 5, type: "user" },
+      { x: width * 0.30, y: height * 0.50, vx: -0.16, vy: 0.10, r: 4, type: "node" },
+      { x: width * 0.22, y: height * 0.75, vx: 0.12, vy: -0.14, r: 4.5, type: "node" },
+
+      { x: width * 0.52, y: height * 0.20, vx: -0.10, vy: 0.12, r: 5, type: "hub" },
+      { x: width * 0.52, y: height * 0.48, vx: 0.08, vy: -0.08, r: 6, type: "hub" },
+      { x: width * 0.50, y: height * 0.78, vx: -0.12, vy: 0.10, r: 5, type: "hub" },
+
+      { x: width * 0.80, y: height * 0.28, vx: -0.16, vy: 0.12, r: 5, type: "center" },
+      { x: width * 0.72, y: height * 0.54, vx: 0.14, vy: -0.12, r: 4, type: "node" },
+      { x: width * 0.84, y: height * 0.74, vx: -0.10, vy: -0.14, r: 5, type: "recover" }
+    ];
+
+    pulses = [
+      { x: width * 0.52, y: height * 0.48, radius: 0, speed: 0.65 },
+      { x: width * 0.80, y: height * 0.28, radius: 25, speed: 0.45 }
+    ];
+  }
+
+  function drawBackgroundGrid() {
+    ctx.save();
+    ctx.strokeStyle = "rgba(148, 163, 184, 0.10)";
+    ctx.lineWidth = 1;
+
+    const gap = 26;
+    for (let x = 0; x < width; x += gap) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+
+    for (let y = 0; y < height; y += gap) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawConnections() {
+    const links = [
+      [0, 1], [1, 2],
+      [1, 4], [2, 5], [0, 3],
+      [3, 4], [4, 5],
+      [3, 6], [4, 7], [5, 8],
+      [6, 7], [7, 8]
+    ];
+
+    ctx.save();
+    for (const [a, b] of links) {
+      const p1 = particles[a];
+      const p2 = particles[b];
+
+      const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+      gradient.addColorStop(0, "rgba(59,130,246,0.30)");
+      gradient.addColorStop(1, "rgba(20,184,166,0.22)");
+
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawPulses() {
+    ctx.save();
+    for (const pulse of pulses) {
+      ctx.beginPath();
+      ctx.arc(pulse.x, pulse.y, pulse.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(37, 99, 235, ${Math.max(0, 0.28 - pulse.radius / 180)})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      pulse.radius += pulse.speed;
+      if (pulse.radius > 95) pulse.radius = 0;
+    }
+    ctx.restore();
+  }
+
+  function drawParticles() {
+    for (const p of particles) {
+      ctx.save();
+
+      let fill = "#64748b";
+      if (p.type === "user") fill = "#2563eb";
+      if (p.type === "hub") fill = "#0f172a";
+      if (p.type === "center") fill = "#059669";
+      if (p.type === "recover") fill = "#7c3aed";
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r + 8, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.18)";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = fill;
+      ctx.shadowColor = fill;
+      ctx.shadowBlur = 14;
+      ctx.fill();
+
+      ctx.restore();
+    }
+  }
+
+  function updateParticles() {
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 18 || p.x > width - 18) p.vx *= -1;
+      if (p.y < 18 || p.y > height - 18) p.vy *= -1;
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    drawBackgroundGrid();
+    drawConnections();
+    drawPulses();
+    drawParticles();
+    updateParticles();
+
+    animationFrame = requestAnimationFrame(animate);
+  }
+
+  resizeCanvas();
+  animate();
+
+  window.addEventListener("resize", resizeCanvas);
+}
+document.addEventListener("DOMContentLoaded", () => {
+  initContactNetworkCanvas();
+});
+  </script>
+</body>
+
+</html>

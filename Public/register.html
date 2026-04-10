@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — KHOJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+.register-assistant-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.register-assistant-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(37,99,235,0.10), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(15,118,110,0.10), transparent 24%);
+  pointer-events: none;
+}
+</style>
+
+<body>
+  <div class="page-bg"></div>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="">Report Lost</a>
+        <a href="report-found.html" class="">Report Found</a>
+        <a href="dashboard.html" class="">Dashboard</a>
+        <a href="contact.html" class="">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+    <div class="mobile-panel container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="report-lost.html">Report Lost</a>
+      <a href="report-found.html">Report Found</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Create account</a>
+    </div>
+
+  </header>
+
+  <main>
+    <section class="page-hero container">
+      <div class="page-hero-copy reveal">
+        <div class="page-badge">Fast onboarding</div>
+        <h1>Create your <span>KHOJ account.</span></h1>
+        <p>A polished registration page makes the whole startup feel more serious, even at MVP stage.</p>
+        <div class="page-hero-actions"><a class="btn btn-primary" href="login.html">Already have an account?</a><a
+            class="btn btn-secondary" href="index.html">Back to home</a></div>
+      </div>
+    </section>
+
+
+    <section class="auth-shell container">
+      <div class="auth-grid">
+        <div class="glass-card auth-card reveal">
+          <h2>Create your KHOJ account</h2>
+          <p class="muted">Make registration feel product-grade so the whole startup looks more serious.</p>
+
+          <form id="registerForm" class="form-grid" style="margin-top:24px;">
+            <div class="form-group full-width">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" placeholder="Enter your full name" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" placeholder="Enter your email" />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" placeholder="Create a password" />
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm password</label>
+              <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password" />
+            </div>
+
+            <div class="form-group full-width">
+              <button class="btn btn-primary full" type="submit">Create account</button>
+            </div>
+          </form>
+
+          <p class="helper" style="margin-top:16px;">Already registered? <a href="login.html"
+              style="color:var(--accent); text-decoration:none;">Go to login</a>.</p>
+        </div>
+
+        <div class="glass-card auth-card reveal delay-1 register-assistant-card">
+          <span class="section-badge">Account setup assistant</span>
+          <h2>Create a strong KHOJ account in one go.</h2>
+          <div class="assistant-meter-wrap" style="margin-top:20px;">
+            <div class="assistant-meter-head"
+              style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+              <strong>Setup progress</strong>
+              <span id="registerAssistantScoreText">0%</span>
+            </div>
+
+            <div class="assistant-meter"
+              style="margin-top:10px;height:12px;border-radius:999px;background:#e2e8f0;overflow:hidden;">
+              <div id="registerAssistantProgressBar"
+                style="height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#0f766e);transition:width .3s ease;">
+              </div>
+            </div>
+          </div>
+
+          <div class="notice" id="registerAssistantStatus" style="margin-top:10px;">
+          </div>
+
+          <div id="registerAssistantChecklist" class="check-list" style="margin-top:20px;">
+            <div id="register-check-name">❌ Add your full name</div>
+            <div id="register-check-email">❌ Add a valid email address</div>
+            <div id="register-check-password">❌ Create a strong password</div>
+            <div id="register-check-match">❌ Passwords must match</div>
+          </div>
+
+          <div class="notice" id="registerAssistantTipBox" style="margin-top:20px;">
+            Tip: Use a password with at least 8 characters for a stronger account.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+
+          <span class="brand-mark footer-brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
+
+          <span class="footer-brand-copy">
+            <strong>KHOJ</strong>
+            <small>India's centralized lost &amp; found network</small>
+          </span>
+        </a>
+        <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <a href="report-lost.html">Report lost item</a>
+        <a href="report-found.html">Report found item</a>
+        <a href="dashboard.html">Track matches</a>
+        <a href="about.html#partners">Partner centers</a>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <a href="about.html#team">Team</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="about.html">About us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:hello@khoj.in">hello@khoj.in</a>
+        <a href="admin.html">Admin panel</a>
+        <span id="year-line"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function initRegisterAssistant() {
+  const form = document.getElementById("registerForm");
+  if (!form) return;
+
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+  const confirmPassword = document.getElementById("confirmPassword");
+
+  const status = document.getElementById("registerAssistantStatus");
+  const scoreText = document.getElementById("registerAssistantScoreText");
+  const progressBar = document.getElementById("registerAssistantProgressBar");
+  const tipBox = document.getElementById("registerAssistantTipBox");
+
+  const checkName = document.getElementById("register-check-name");
+  const checkEmail = document.getElementById("register-check-email");
+  const checkPassword = document.getElementById("register-check-password");
+  const checkMatch = document.getElementById("register-check-match");
+
+  if (!name || !email || !password || !confirmPassword || !status || !scoreText || !progressBar || !tipBox) {
+    return;
+  }
+
+  function mark(el, done, doneText, pendingText) {
+    if (!el) return;
+    el.textContent = done ? `✅ ${doneText}` : `❌ ${pendingText}`;
+    el.className = done ? "assistant-ok" : "";
+  }
+
+  function validEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function updateAssistant() {
+    const nameOk = name.value.trim().length >= 3;
+    const emailOk = validEmail(email.value.trim());
+    const passwordOk = password.value.length >= 8;
+    const matchOk = password.value.length > 0 && password.value === confirmPassword.value;
+
+    let score = 0;
+    if (nameOk) score += 20;
+    if (emailOk) score += 25;
+    if (passwordOk) score += 30;
+    if (matchOk) score += 25;
+
+    scoreText.textContent = `${score}%`;
+    progressBar.style.width = `${score}%`;
+
+    mark(checkName, nameOk, "Full name added", "Add your full name");
+    mark(checkEmail, emailOk, "Email looks valid", "Add a valid email address");
+    mark(checkPassword, passwordOk, "Password strength is good", "Create a strong password");
+    mark(checkMatch, matchOk, "Passwords match", "Passwords must match");
+
+    if (score === 0) {
+      status.textContent = "Start filling the form to create your account.";
+      status.className = "notice";
+      tipBox.textContent = "Tip: Use a password with at least 8 characters for a stronger account.";
+    } else if (score <= 25) {
+      status.textContent = "Good start — complete the basics to continue.";
+      status.className = "notice assistant-warn";
+      tipBox.textContent = "Best next step: add a valid email and a stronger password.";
+    } else if (score <= 55) {
+      status.textContent = "Nice progress — your account setup is halfway ready.";
+      status.className = "notice assistant-warn";
+      tipBox.textContent = "Make sure your password is strong and both password fields match.";
+    } else if (score <= 80) {
+      status.textContent = "Strong setup — just one more step left.";
+      status.className = "notice assistant-strong";
+      tipBox.textContent = "Double-check your password match before creating the account.";
+    } else {
+      status.textContent = "Excellent — your account is ready to be created.";
+      status.className = "notice assistant-ok";
+      tipBox.textContent = "Everything looks good. You can create your KHOJ account now.";
+    }
+  }
+
+  name.addEventListener("input", updateAssistant);
+  email.addEventListener("input", updateAssistant);
+  password.addEventListener("input", updateAssistant);
+  confirmPassword.addEventListener("input", updateAssistant);
+
+  updateAssistant();
+}
+initRegisterAssistant();
+  </script>
+</body>
+
+</html>

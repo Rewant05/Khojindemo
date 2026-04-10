@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Found Item — KHOJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+  .khoj-assistant-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.khoj-assistant-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(37,99,235,0.10), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(15,118,110,0.10), transparent 24%);
+  pointer-events: none;
+}
+
+.assistant-ok {
+  color: #166534;
+  font-weight: 600;
+}
+
+.assistant-warn {
+  color: #b45309;
+  font-weight: 600;
+}
+
+.assistant-strong {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+</style>
+<body>
+  <div class="page-bg"></div>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+<span class="brand-mark">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+  </svg>
+</span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="">Report Lost</a>
+        <a href="report-found.html" class="active">Report Found</a>
+        <a href="dashboard.html" class="">Dashboard</a>
+        <a href="contact.html" class="">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary" id="navUserBtn">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+      <div class="mobile-panel container">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="report-lost.html">Report Lost</a>
+        <a href="report-found.html">Report Found</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="admin.html">Admin</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html" id="mobileNavUserBtn">Login</a>
+        <a href="register.html">Create account</a>
+      </div>
+
+  </header>
+
+  <main>
+    <section class="page-hero container">
+      <div class="page-hero-copy reveal">
+        <div class="page-badge">Center-friendly workflow</div>
+        <h1>Log a <span>found item</span> the right way.</h1>
+        <p>Help citizens and centers upload clean details so the matching journey becomes easier and more trustworthy later.</p>
+        <div class="page-hero-actions"><a class="btn btn-primary" href="dashboard.html">View dashboard</a><a class="btn btn-secondary" href="report-lost.html">Report lost item instead</a></div>
+      </div>
+    </section>
+
+
+<section class="form-shell container">
+  <div class="dashboard-layout">
+    <div class="glass-card form-card reveal">
+      <h2>Report a found item</h2>
+      <p class="muted">Make it easy for finders and centers to log the item clearly so matching becomes much easier later.</p>
+
+      <form id="foundForm" class="form-grid" style="margin-top:24px;">
+  <div class="form-group">
+    <label for="found_item_name">Item name</label>
+    <input id="found_item_name" name="item_name" type="text" placeholder="e.g. Backpack, phone, wallet" />
+  </div>
+
+  <div class="form-group">
+    <label for="found_category">Category</label>
+    <select id="found_category" name="category">
+      <option>Wallet / Purse</option>
+      <option>Phone / Electronics</option>
+      <option>Bag / Luggage</option>
+      <option>ID / Document</option>
+      <option>Jewelry / Accessories</option>
+      <option>Other</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="date_found">Date found</label>
+    <input id="date_found" name="date_found" type="date" />
+  </div>
+
+  <div class="form-group">
+    <label for="found_location">Found location</label>
+    <input id="found_location" name="location" type="text" placeholder="e.g. Airport terminal, library, metro station" />
+  </div>
+
+  <div class="form-group full-width">
+    <label for="found_description">Description</label>
+    <textarea id="found_description" name="description" placeholder="Mention where it was found, visible brand, contents, physical condition, or unique details."></textarea>
+  </div>
+
+  <div class="form-group full-width">
+    <label for="found_image">Upload image</label>
+    <div class="file-drop">
+      <input id="found_image" name="image" class="file-input" data-preview="found-file-preview" type="file" />
+      <p class="helper" id="found-file-preview" style="margin:12px 0 0;">No file selected yet.</p>
+    </div>
+  </div>
+
+  <div class="form-group full-width">
+    <button class="btn btn-primary full" type="submit">Submit found item report</button>
+  </div>
+</form>
+    </div>
+
+    <div class="glass-card form-card reveal delay-1 khoj-assistant-card">
+  <span class="section-badge">KHOJ Finder Assistant</span>
+  <h2>Make this found-item report easier to match</h2>
+  <p class="muted">
+    Clear found-item reports help the real owner identify their belongings faster.
+  </p>
+
+  <div class="assistant-meter-wrap" style="margin-top:20px;">
+    <div class="assistant-meter-head" style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+      <strong>Report strength</strong>
+      <span id="foundAssistantScoreText">0%</span>
+    </div>
+
+    <div class="assistant-meter" style="margin-top:10px;height:12px;border-radius:999px;background:#e2e8f0;overflow:hidden;">
+      <div id="foundAssistantProgressBar" style="height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#0f766e);transition:width .3s ease;"></div>
+    </div>
+  </div>
+
+  <div class="notice" id="foundAssistantStatus" style="margin-top:20px;">
+    Start filling the form to improve match chances.
+  </div>
+
+  <div id="foundAssistantChecklist" class="check-list" style="margin-top:20px;">
+    <div id="found-check-item">❌ Add a clear item name</div>
+    <div id="found-check-location">❌ Add where the item was found</div>
+    <div id="found-check-description">❌ Add useful identifying details</div>
+    <div id="found-check-image">❌ Upload an image if available</div>
+  </div>
+
+  <div class="notice" id="foundAssistantTipBox" style="margin-top:20px;">
+    Tip: Mention the exact place found, visible brand, color, condition, and any unique marks.
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+
+<span class="brand-mark footer-brand-mark">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+  </svg>
+</span>
+
+          <span class="footer-brand-copy">
+            <strong>KHOJ</strong>
+            <small>India's centralized lost &amp; found network</small>
+          </span>
+        </a>
+        <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <a href="report-lost.html">Report lost item</a>
+        <a href="report-found.html">Report found item</a>
+        <a href="dashboard.html">Track matches</a>
+        <a href="about.html#partners">Partner centers</a>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <a href="about.html#team">Team</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="about.html">About us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:hello@khoj.in">hello@khoj.in</a>
+        <a href="admin.html">Admin panel</a>
+        <span id="year-line"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    function initFoundFormAssistant() {
+  const form = document.getElementById("foundForm");
+  if (!form) return;
+
+  const item = document.getElementById("found_item_name");
+  const location = document.getElementById("found_location");
+  const desc = document.getElementById("found_description");
+  const image = document.getElementById("found_image");
+
+  const status = document.getElementById("foundAssistantStatus");
+  const scoreText = document.getElementById("foundAssistantScoreText");
+  const progressBar = document.getElementById("foundAssistantProgressBar");
+  const tipBox = document.getElementById("foundAssistantTipBox");
+
+  const checkItem = document.getElementById("found-check-item");
+  const checkLocation = document.getElementById("found-check-location");
+  const checkDescription = document.getElementById("found-check-description");
+  const checkImage = document.getElementById("found-check-image");
+
+  if (!item || !location || !desc || !image || !status || !scoreText || !progressBar || !tipBox) {
+    return;
+  }
+
+  function mark(el, done, doneText, pendingText) {
+    if (!el) return;
+    el.textContent = done ? `✅ ${doneText}` : `❌ ${pendingText}`;
+    el.className = done ? "assistant-ok" : "";
+  }
+
+  function updateAssistant() {
+    const itemOk = item.value.trim().length >= 3;
+    const locationOk = location.value.trim().length >= 3;
+    const descOk = desc.value.trim().length >= 15;
+    const imageOk = image.files && image.files.length > 0;
+
+    let score = 0;
+    if (itemOk) score += 25;
+    if (locationOk) score += 25;
+    if (descOk) score += 30;
+    if (imageOk) score += 20;
+
+    scoreText.textContent = `${score}%`;
+    progressBar.style.width = `${score}%`;
+
+    mark(checkItem, itemOk, "Item name looks good", "Add a clear item name");
+    mark(checkLocation, locationOk, "Found location is added", "Add where the item was found");
+    mark(checkDescription, descOk, "Description is detailed enough", "Add useful identifying details");
+    mark(checkImage, imageOk, "Image uploaded", "Upload an image if available");
+
+    if (score === 0) {
+      status.textContent = "Start filling the form to improve match chances.";
+      status.className = "notice";
+      tipBox.textContent = "Tip: Mention the exact place found, visible brand, color, condition, and any unique marks.";
+    } else if (score <= 25) {
+      status.textContent = "Basic start — add more details so the owner can identify it.";
+      status.className = "notice assistant-warn";
+      tipBox.textContent = "Best next step: add location and item-specific details.";
+    } else if (score <= 55) {
+      status.textContent = "Decent progress — this report is becoming more useful.";
+      status.className = "notice assistant-warn";
+      tipBox.textContent = "Try mentioning brand, color, scratches, contents, or where exactly it was found.";
+    } else if (score <= 80) {
+      status.textContent = "Strong report — this should help matching significantly.";
+      status.className = "notice assistant-strong";
+      tipBox.textContent = "Adding an image can improve confidence even more.";
+    } else {
+      status.textContent = "Excellent report — high chance of easier owner identification.";
+      status.className = "notice assistant-ok";
+      tipBox.textContent = "Great job. Your found-item report is detailed and match-friendly.";
+    }
+  }
+
+  item.addEventListener("input", updateAssistant);
+  location.addEventListener("input", updateAssistant);
+  desc.addEventListener("input", updateAssistant);
+  image.addEventListener("change", updateAssistant);
+
+  updateAssistant();
+}
+initFoundFormAssistant();
+  </script>
+</body>
+</html>

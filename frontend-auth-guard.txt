@@ -1,0 +1,18 @@
+// Paste these helper functions into public/app.js if you want report pages
+// to redirect to login immediately when user is not logged in.
+
+function getToken() {
+  return localStorage.getItem("token");
+}
+
+function requireLoginOnProtectedPages() {
+  const protectedPages = ["report-lost.html", "report-found.html", "dashboard.html", "admin.html"];
+  const currentPage = window.location.pathname.split("/").pop();
+
+  if (protectedPages.includes(currentPage) && !getToken()) {
+    alert("Please login first.");
+    window.location.href = "login.html";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", requireLoginOnProtectedPages);
