@@ -7,175 +7,61 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-body {
-  background: linear-gradient(135deg, #f8fafc, #eef2ff);
-  color: #0f172a;
-}
-
-.container {
-  width: 90%;
-  max-width: 1100px;
-  margin: auto;
-}
-
-header {
-  padding: 20px 0;
-}
-
-.brand {
-  font-weight: 700;
-  font-size: 20px;
-  text-decoration: none;
-  color: #0f172a;
-}
-
-/* HERO */
-.page-hero {
-  text-align: center;
-  padding: 60px 0 30px;
-}
-
-.page-badge {
-  display: inline-block;
-  background: #e0e7ff;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-.page-hero h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.page-hero span {
-  color: #4f46e5;
-}
-
-.page-hero p {
-  color: #64748b;
-}
-
-/* GRID */
-.auth-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-/* FORM */
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-}
-
-textarea {
-  height: 80px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(90deg, #4f46e5, #0ea5e9);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-/* BENEFITS */
-.benefit {
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 10px;
-}
-
-.benefit h4 {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-.benefit p {
-  font-size: 13px;
-  color: #64748b;
-}
-
-/* TRUST BAR */
-.trust-bar {
-  height: 8px;
-  background: #e2e8f0;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-.trust-fill {
-  height: 100%;
-  width: 85%;
-  background: linear-gradient(90deg,#4f46e5,#0ea5e9);
-  border-radius: 10px;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { width: 80%; }
-  50% { width: 90%; }
-}
-
-.notice {
-  margin-top: 15px;
-  font-size: 13px;
-  color: #64748b;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .auth-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
+<link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-<header class="container">
-  <a href="#" class="brand">🔍 KHOJ</a>
-</header>
+<header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+
+        <span>
+          <strong>KHOJ</strong>
+          <small>India's centralized lost &amp; found network</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="">Home</a>
+        <a href="about.html" class="">About</a>
+        <a href="report-lost.html" class="">Report Lost</a>
+        <a href="report-found.html" class="">Report Found</a>
+        <a href="dashboard.html" class="">Dashboard</a>
+        <a href="contact.html" class="">Contact</a>
+      </nav>
+
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-secondary">Login</a>
+        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
+      </div>
+    </div>
+
+
+    <div class="mobile-panel container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="report-lost.html">Report Lost</a>
+      <a href="report-found.html">Report Found</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Create account</a>
+    </div>
+
+  </header>
 
 <section class="page-hero container">
   <div class="page-badge">Partner onboarding</div>

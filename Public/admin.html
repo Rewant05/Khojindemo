@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel — KHOJ</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .danger-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(239, 68, 68, 0.12);
+      color: #dc2626;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .admin-action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .admin-small-btn {
+      padding: 8px 12px !important;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .admin-small-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .admin-message {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      display: none;
+    }
+
+    .admin-message.show {
+      display: block;
+    }
+
+    .table-shell table td {
+      vertical-align: top;
+    }
+
+    .admin-description-cell {
+      max-width: 280px;
+      line-height: 1.5;
+    }
+  </style>
 </head>
+
 <body>
   <div class="page-bg"></div>
 
   <header class="site-header">
     <div class="container navbar">
       <a href="index.html" class="brand">
-
-<span class="brand-mark">
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
-    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-  </svg>
-</span>
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </span>
 
         <span>
           <strong>KHOJ</strong>
@@ -31,36 +87,32 @@
 
       <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
 
-
       <nav class="nav-links">
-        <a href="index.html" class="">Home</a>
-        <a href="about.html" class="">About</a>
-        <a href="report-lost.html" class="">Report Lost</a>
-        <a href="report-found.html" class="">Report Found</a>
-        <a href="dashboard.html" class="">Dashboard</a>
-        <a href="contact.html" class="">Contact</a>
-      </nav>
-
-
-      <div class="nav-actions">
-        <a href="login.html" class="btn btn-secondary">Login</a>
-        <a href="report-lost.html" class="btn btn-primary">Report Item</a>
-      </div>
-    </div>
-
-
-      <div class="mobile-panel container">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="report-lost.html">Report Lost</a>
         <a href="report-found.html">Report Found</a>
         <a href="dashboard.html">Dashboard</a>
-        <a href="admin.html">Admin</a>
         <a href="contact.html">Contact</a>
-        <a href="login.html">Login</a>
-        <a href="register.html">Create account</a>
-      </div>
+      </nav>
 
+      <div class="nav-actions">
+        <a href="admin.html" class="btn btn-secondary" id="adminNameBtn">Admin</a>
+        <button class="btn btn-primary" id="adminLogoutBtn" type="button">Logout</button>
+      </div>
+    </div>
+
+    <div class="mobile-panel container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="report-lost.html">Report Lost</a>
+      <a href="report-found.html">Report Found</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Create account</a>
+    </div>
   </header>
 
   <main>
@@ -68,113 +120,291 @@
       <div class="page-hero-copy reveal">
         <div class="page-badge">Operations dashboard</div>
         <h1>An admin panel for <span>review and oversight.</span></h1>
-        <p>Judges and users trust products more when they see there is an operational view behind the reporting flow. This page gives you that layer.</p>
-        <div class="page-hero-actions"><a class="btn btn-primary" href="dashboard.html">User dashboard</a><a class="btn btn-secondary" href="index.html">Homepage</a></div>
+        <p>Review users, lost reports, found reports, matched pairs, and partner requests from one operational view.</p>
+
+        <div class="page-hero-actions">
+          <a class="btn btn-primary" href="dashboard.html">User dashboard</a>
+          <a class="btn btn-secondary" href="index.html">Homepage</a>
+        </div>
+
+        <div id="adminMessage" class="admin-message"></div>
       </div>
     </section>
 
+    <section class="dashboard-shell container">
+      <div class="dashboard-stats reveal">
+        <div class="dashboard-stat">
+          <strong id="adminUserCount">0</strong>
+          <span>users</span>
+        </div>
 
-<section class="dashboard-shell container">
-  <div class="dashboard-stats reveal">
-    <div class="dashboard-stat"><strong>128</strong><span>users</span></div>
-    <div class="dashboard-stat"><strong>49</strong><span>lost reports</span></div>
-    <div class="dashboard-stat"><strong>37</strong><span>found reports</span></div>
-    <div class="dashboard-stat"><strong>12</strong><span>matched pairs</span></div>
-  </div>
+        <div class="dashboard-stat">
+          <strong id="adminLostCount">0</strong>
+          <span>lost reports</span>
+        </div>
 
-  <div class="table-card reveal">
-    <header>
-      <div>
-        <h3>Admin overview</h3>
-        <p>This page is designed for admin review, center operations, and reporting visibility.</p>
+        <div class="dashboard-stat">
+          <strong id="adminFoundCount">0</strong>
+          <span>found reports</span>
+        </div>
+
+        <div class="dashboard-stat">
+          <strong id="adminMatchCount">0</strong>
+          <span>matched pairs</span>
+        </div>
       </div>
-      <a href="#" class="btn btn-secondary">Export later</a>
-    </header>
 
-    <div class="table-shell">
-      <table>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Item</th>
-            <th>User</th>
-            <th>Location</th>
-            <th>Status</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Lost</td>
-            <td>Wallet</td>
-            <td>rewant@gmail.com</td>
-            <td>Kashmere Gate Metro</td>
-            <td><span class="warning-chip">Pending</span></td>
-            <td>05 Apr 2026</td>
-          </tr>
-          <tr>
-            <td>Found</td>
-            <td>Wallet</td>
-            <td>admin@khoj.in</td>
-            <td>Kashmere Gate Metro</td>
-            <td><span class="success-chip">Matched</span></td>
-            <td>06 Apr 2026</td>
-          </tr>
-          <tr>
-            <td>Lost</td>
-            <td>ID Card</td>
-            <td>user@iiitd.ac.in</td>
-            <td>IIIT Delhi</td>
-            <td><span class="success-chip">Found</span></td>
-            <td>04 Apr 2026</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      <div class="table-card reveal">
+        <header>
+          <div>
+            <h3>Admin overview</h3>
+            <p>All lost and found reports submitted by users will appear here.</p>
+          </div>
 
-  <div class="dashboard-layout" style="margin-top:20px;">
-    <div class="glass-card admin-card reveal">
-      <h2>What to connect later</h2>
-      <div class="check-list">
-        <div>/admin/users</div>
-        <div>/admin/lost-items</div>
-        <div>/admin/found-items</div>
-        <div>/admin/matched-items</div>
+          <button class="btn btn-secondary" type="button" id="refreshAdminBtn">Refresh</button>
+        </header>
+
+        <div class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Item</th>
+                <th>User</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+
+            <tbody id="adminOverviewBody">
+              <tr>
+                <td colspan="6">Loading admin overview...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
-    <div class="glass-card admin-card reveal delay-1">
-      <h2>Best admin actions</h2>
-      <div class="check-list">
-        <div>Review high-confidence matches</div>
-        <div>Mark item as claimed or returned</div>
-        <div>Inspect suspicious or duplicate reports</div>
-        <div>View user and center activity</div>
+      <div class="table-card reveal" style="margin-top: 24px;">
+        <header>
+          <div>
+            <h3>Partner requests</h3>
+            <p>Approve or reject institutions that want to become KHOJ partner centers.</p>
+          </div>
+        </header>
+
+        <div class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>Organization</th>
+                <th>Type</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Requested On</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="partnerRequestsBody">
+              <tr>
+                <td colspan="8">Loading partner requests...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
+      <details class="admin-dropdown reveal">
+        <summary>
+          <span>
+            All users
+            <span class="dropdown-subtitle">View every registered KHOJ user.</span>
+          </span>
+        </summary>
+
+        <div class="admin-dropdown-content">
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Joined On</th>
+                </tr>
+              </thead>
+
+              <tbody id="adminUsersBody">
+                <tr>
+                  <td colspan="4">Loading users...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details class="admin-dropdown reveal">
+        <summary>
+          <span>
+            All lost reports
+            <span class="dropdown-subtitle">Complete list of lost item reports submitted by users.</span>
+          </span>
+        </summary>
+
+        <div class="admin-dropdown-content">
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Item</th>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Date Lost</th>
+                  <th>Created On</th>
+                </tr>
+              </thead>
+
+              <tbody id="adminLostBody">
+                <tr>
+                  <td colspan="8">Loading lost reports...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details class="admin-dropdown reveal">
+        <summary>
+          <span>
+            All found reports
+            <span class="dropdown-subtitle">Complete list of found item reports submitted by users.</span>
+          </span>
+        </summary>
+
+        <div class="admin-dropdown-content">
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Item</th>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Date Found</th>
+                  <th>Created On</th>
+                </tr>
+              </thead>
+
+              <tbody id="adminFoundBody">
+                <tr>
+                  <td colspan="8">Loading found reports...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details class="admin-dropdown reveal">
+        <summary>
+          <span>
+            Matched pairs
+            <span class="dropdown-subtitle">Lost and found items matched by the system.</span>
+          </span>
+        </summary>
+
+        <div class="admin-dropdown-content">
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Match ID</th>
+                  <th>Lost Item</th>
+                  <th>Found Item</th>
+                  <th>Score</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                  <th>Matched On</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="adminMatchesBody">
+                <tr>
+                  <td colspan="8">Loading matched pairs...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details class="admin-dropdown reveal">
+        <summary>
+          <span>
+            Contact messages
+            <span class="dropdown-subtitle">Messages submitted from the KHOJ contact page.</span>
+          </span>
+        </summary>
+
+        <div class="admin-dropdown-content">
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Subject</th>
+                  <th>Message</th>
+                  <th>Status</th>
+                  <th>Received On</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="contactMessagesBody">
+                <tr>
+                  <td colspan="8">Loading contact messages...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
         <a href="index.html" class="brand footer-brand">
-
-<span class="brand-mark footer-brand-mark">
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
-    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-  </svg>
-</span>
+          <span class="brand-mark footer-brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="11" cy="11" r="5.5" stroke="currentColor" stroke-width="2"></circle>
+              <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
 
           <span class="footer-brand-copy">
             <strong>KHOJ</strong>
             <small>India's centralized lost &amp; found network</small>
           </span>
         </a>
+
         <p>Reconnecting people with what matters through a cleaner, more trusted lost and found experience.</p>
       </div>
 
@@ -203,6 +433,621 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script>
+    const API_BASE_URL = "http://localhost:5000";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setupAdminPage();
+    });
+
+    function setupAdminPage() {
+      setupMobileMenu();
+      setupYear();
+      setupRevealAnimation();
+      protectAdminPage();
+
+      const refreshBtn = document.getElementById("refreshAdminBtn");
+      if (refreshBtn) {
+        refreshBtn.addEventListener("click", fetchAdminData);
+      }
+
+      const logoutBtn = document.getElementById("adminLogoutBtn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", logoutAdmin);
+      }
+
+      const adminNameBtn = document.getElementById("adminNameBtn");
+      const adminName = localStorage.getItem("name");
+      if (adminNameBtn && adminName) {
+        adminNameBtn.textContent = adminName;
+      }
+
+      fetchAdminData();
+    }
+
+    function setupMobileMenu() {
+      const menuToggle = document.querySelector(".menu-toggle");
+      const mobilePanel = document.querySelector(".mobile-panel");
+
+      if (menuToggle && mobilePanel) {
+        menuToggle.addEventListener("click", () => {
+          mobilePanel.classList.toggle("open");
+          menuToggle.setAttribute(
+            "aria-expanded",
+            mobilePanel.classList.contains("open") ? "true" : "false"
+          );
+        });
+      }
+    }
+
+    function setupYear() {
+      const yearLine = document.getElementById("year-line");
+      if (yearLine) {
+        yearLine.textContent = `© ${new Date().getFullYear()} KHOJ — Built for trusted recovery.`;
+      }
+    }
+
+    function setupRevealAnimation() {
+      const revealItems = document.querySelectorAll(".reveal");
+
+      if (!revealItems.length) return;
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealItems.forEach((item) => io.observe(item));
+    }
+
+    function protectAdminPage() {
+      const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role");
+      const email = localStorage.getItem("email");
+
+      if (!token) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (role !== "admin" || email !== "admin@khoj.in") {
+        alert("Admins only.");
+        window.location.href = "dashboard.html";
+      }
+    }
+
+    function getAdminHeaders() {
+      const token = localStorage.getItem("token");
+
+      return {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    async function fetchAdminData() {
+      const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role");
+
+      if (!token || role !== "admin") return;
+
+      showAdminMessage("Loading admin data...");
+
+      try {
+        const headers = getAdminHeaders();
+
+        const [usersRes, lostRes, foundRes, matchesRes, partnersRes,contactRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/admin/users`, { headers }),
+          fetch(`${API_BASE_URL}/admin/lost-items`, { headers }),
+          fetch(`${API_BASE_URL}/admin/found-items`, { headers }),
+          fetch(`${API_BASE_URL}/admin/matched-items`, { headers }),
+          fetch(`${API_BASE_URL}/admin/partners`, { headers }),
+          fetch(`${API_BASE_URL}/admin/contact-messages`, { headers }),
+        ]);
+
+        const users = await usersRes.json();
+        const lostItems = await lostRes.json();
+        const foundItems = await foundRes.json();
+        const matches = await matchesRes.json();
+        const partners = await partnersRes.json();
+        const contacts = await contactRes.json();
+
+        if (!usersRes.ok || !lostRes.ok || !foundRes.ok || !matchesRes.ok || !partnersRes.ok || !contactRes.ok) {
+          console.error("Admin API error:", {
+            users,
+            lostItems,
+            foundItems,
+            matches,
+            partners,
+            contacts,
+          });
+
+          showAdminMessage("Admin data failed to load. Check backend terminal and browser console.");
+          return;
+        }
+
+        document.getElementById("adminUserCount").textContent = Array.isArray(users) ? users.length : 0;
+        document.getElementById("adminLostCount").textContent = Array.isArray(lostItems) ? lostItems.length : 0;
+        document.getElementById("adminFoundCount").textContent = Array.isArray(foundItems) ? foundItems.length : 0;
+        document.getElementById("adminMatchCount").textContent = Array.isArray(matches) ? matches.length : 0;
+
+        renderAdminOverview(lostItems, foundItems);
+        renderPartnerRequests(partners);
+
+        renderUsersTable(users);
+        renderLostReportsTable(lostItems);
+        renderFoundReportsTable(foundItems);
+        renderMatchesTable(matches);
+        renderContactMessagesTable(contacts);
+
+        showAdminMessage("Admin data loaded successfully.");
+      } catch (error) {
+        console.error("Admin data load error:", error);
+        showAdminMessage("Server error while loading admin data. Make sure nodemon server.js is running.");
+      }
+    }
+
+    function renderAdminOverview(lostItems, foundItems) {
+      const tbody = document.getElementById("adminOverviewBody");
+      if (!tbody) return;
+
+      const rows = [];
+
+      if (Array.isArray(lostItems)) {
+        lostItems.forEach((item) => {
+          rows.push({
+            type: "Lost",
+            item: item.item_name,
+            user: item.user_email || item.user_name || "Unknown",
+            location: item.location,
+            status: item.status || "Pending",
+            date: item.created_at,
+          });
+        });
+      }
+
+      if (Array.isArray(foundItems)) {
+        foundItems.forEach((item) => {
+          rows.push({
+            type: "Found",
+            item: item.item_name,
+            user: item.user_email || item.user_name || "Unknown",
+            location: item.location,
+            status: item.status || "Available",
+            date: item.created_at,
+          });
+        });
+      }
+
+      rows.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (rows.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6">No lost/found reports found yet.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = rows.map((row) => {
+        const chipClass = getReportStatusChip(row.status);
+
+        return `
+          <tr>
+            <td>${escapeHtml(row.type)}</td>
+            <td>${escapeHtml(row.item || "-")}</td>
+            <td>${escapeHtml(row.user || "-")}</td>
+            <td>${escapeHtml(row.location || "-")}</td>
+            <td><span class="${chipClass}">${escapeHtml(row.status || "-")}</span></td>
+            <td>${formatDate(row.date)}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderPartnerRequests(partners) {
+      const tbody = document.getElementById("partnerRequestsBody");
+      if (!tbody) return;
+
+      if (!Array.isArray(partners) || partners.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8">No partner requests yet.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = partners.map((partner) => {
+        const status = partner.status || "pending";
+        const chipClass = getPartnerStatusChip(status);
+
+        const actionButtons = status === "pending"
+          ? `
+            <div class="admin-action-row">
+              <button
+                class="btn btn-primary admin-small-btn"
+                type="button"
+                onclick="updatePartnerStatus(${partner.id}, 'approved')"
+              >
+                Approve
+              </button>
+
+              <button
+                class="btn btn-secondary admin-small-btn"
+                type="button"
+                onclick="updatePartnerStatus(${partner.id}, 'rejected')"
+              >
+                Reject
+              </button>
+            </div>
+          `
+          : `<span class="muted">Reviewed</span>`;
+
+        return `
+          <tr>
+            <td>${escapeHtml(partner.name || "-")}</td>
+            <td>${escapeHtml(partner.type || "-")}</td>
+            <td>${escapeHtml(partner.email || "-")}</td>
+            <td>${escapeHtml(partner.location || "-")}</td>
+            <td class="admin-description-cell">${escapeHtml(partner.description || "-")}</td>
+            <td><span class="${chipClass}">${escapeHtml(status)}</span></td>
+            <td>${formatDate(partner.created_at)}</td>
+            <td>${actionButtons}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    async function updatePartnerStatus(partnerId, status) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const confirmAction = confirm(`Are you sure you want to ${status} this partner request?`);
+      if (!confirmAction) return;
+
+      try {
+        showAdminMessage(`Updating partner request to ${status}...`);
+
+        const response = await fetch(`${API_BASE_URL}/admin/partners/${partnerId}/status`, {
+          method: "PUT",
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ status }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showAdminMessage(data.message || "Partner status updated successfully.");
+          fetchAdminData();
+        } else {
+          showAdminMessage(data.message || "Failed to update partner status.");
+        }
+      } catch (error) {
+        console.error("Partner status update error:", error);
+        showAdminMessage("Server error while updating partner status.");
+      }
+    }
+
+    function getReportStatusChip(status) {
+      if (
+        status === "Matched" ||
+        status === "Found" ||
+        status === "Returned" ||
+        status === "Claimed"
+      ) {
+        return "success-chip";
+      }
+
+      return "warning-chip";
+    }
+
+    function getPartnerStatusChip(status) {
+      if (status === "approved") return "success-chip";
+      if (status === "rejected") return "danger-chip";
+      return "warning-chip";
+    }
+
+    function showAdminMessage(message) {
+      const messageBox = document.getElementById("adminMessage");
+      if (!messageBox) return;
+
+      messageBox.textContent = message;
+      messageBox.classList.add("show");
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("name");
+      localStorage.removeItem("email");
+      localStorage.removeItem("role");
+
+      window.location.href = "login.html";
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return "-";
+
+      const date = new Date(dateValue);
+      if (Number.isNaN(date.getTime())) return "-";
+
+      return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderUsersTable(users) {
+      const tbody = document.getElementById("adminUsersBody");
+      if (!tbody) return;
+
+      if (!Array.isArray(users) || users.length === 0) {
+        tbody.innerHTML = `
+      <tr>
+        <td colspan="4">No users found.</td>
+      </tr>
+    `;
+        return;
+      }
+
+      tbody.innerHTML = users.map((user) => {
+        return `
+      <tr>
+        <td>${escapeHtml(user.id || "-")}</td>
+        <td>${escapeHtml(user.name || "-")}</td>
+        <td>${escapeHtml(user.email || "-")}</td>
+        <td>${formatDate(user.created_at)}</td>
+      </tr>
+    `;
+      }).join("");
+    }
+
+
+    function renderLostReportsTable(lostItems) {
+      const tbody = document.getElementById("adminLostBody");
+      if (!tbody) return;
+
+      if (!Array.isArray(lostItems) || lostItems.length === 0) {
+        tbody.innerHTML = `
+      <tr>
+        <td colspan="8">No lost reports found.</td>
+      </tr>
+    `;
+        return;
+      }
+
+      tbody.innerHTML = lostItems.map((item) => {
+        const chipClass = getReportStatusChip(item.status);
+
+        return `
+      <tr>
+        <td>${escapeHtml(item.id || "-")}</td>
+        <td>${escapeHtml(item.item_name || "-")}</td>
+        <td>${escapeHtml(item.user_name || "-")}</td>
+        <td>${escapeHtml(item.user_email || "-")}</td>
+        <td>${escapeHtml(item.location || "-")}</td>
+        <td><span class="${chipClass}">${escapeHtml(item.status || "-")}</span></td>
+        <td>${formatDate(item.date_lost)}</td>
+        <td>${formatDate(item.created_at)}</td>
+      </tr>
+    `;
+      }).join("");
+    }
+
+
+    function renderFoundReportsTable(foundItems) {
+      const tbody = document.getElementById("adminFoundBody");
+      if (!tbody) return;
+
+      if (!Array.isArray(foundItems) || foundItems.length === 0) {
+        tbody.innerHTML = `
+      <tr>
+        <td colspan="8">No found reports found.</td>
+      </tr>
+    `;
+        return;
+      }
+
+      tbody.innerHTML = foundItems.map((item) => {
+        const chipClass = getReportStatusChip(item.status);
+
+        return `
+      <tr>
+        <td>${escapeHtml(item.id || "-")}</td>
+        <td>${escapeHtml(item.item_name || "-")}</td>
+        <td>${escapeHtml(item.user_name || "-")}</td>
+        <td>${escapeHtml(item.user_email || "-")}</td>
+        <td>${escapeHtml(item.location || "-")}</td>
+        <td><span class="${chipClass}">${escapeHtml(item.status || "-")}</span></td>
+        <td>${formatDate(item.date_found)}</td>
+        <td>${formatDate(item.created_at)}</td>
+      </tr>
+    `;
+      }).join("");
+    }
+
+
+    function renderMatchesTable(matches) {
+      const tbody = document.getElementById("adminMatchesBody");
+      if (!tbody) return;
+
+      if (!Array.isArray(matches) || matches.length === 0) {
+        tbody.innerHTML = `
+      <tr>
+        <td colspan="8">No matched pairs found.</td>
+      </tr>
+    `;
+        return;
+      }
+
+      tbody.innerHTML = matches.map((match) => {
+        const status = match.match_status || "Pending Review";
+
+        const chipClass =
+          status === "Confirmed"
+            ? "success-chip"
+            : status === "Rejected"
+              ? "danger-chip"
+              : "warning-chip";
+
+        const actionButtons =
+          status === "Pending Review"
+            ? `
+          <div class="admin-action-row">
+            <button
+              class="btn btn-primary admin-small-btn"
+              type="button"
+              onclick="updateMatchStatus(${match.id}, 'Confirmed')"
+            >
+              Approve
+            </button>
+
+            <button
+              class="btn btn-secondary admin-small-btn"
+              type="button"
+              onclick="updateMatchStatus(${match.id}, 'Rejected')"
+            >
+              Reject
+            </button>
+          </div>
+        `
+            : `<span class="muted">Reviewed</span>`;
+
+        return `
+      <tr>
+        <td>${escapeHtml(match.id || "-")}</td>
+        <td>${escapeHtml(match.lost_item_name || "-")}</td>
+        <td>${escapeHtml(match.found_item_name || "-")}</td>
+        <td>${escapeHtml(match.match_score ?? "-")}</td>
+        <td>${escapeHtml(match.match_reason || "-")}</td>
+        <td><span class="${chipClass}">${escapeHtml(status)}</span></td>
+        <td>${formatDate(match.matched_at)}</td>
+        <td>${actionButtons}</td>
+      </tr>
+    `;
+      }).join("");
+    }
+
+    async function updateMatchStatus(matchId, status) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const confirmAction = confirm(`Are you sure you want to ${status.toLowerCase()} this match?`);
+      if (!confirmAction) return;
+
+      try {
+        showAdminMessage(`Updating match to ${status}...`);
+
+        const response = await fetch(`${API_BASE_URL}/admin/matches/${matchId}/status`, {
+          method: "PUT",
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ status }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showAdminMessage(data.message || "Match status updated successfully.");
+          fetchAdminData();
+        } else {
+          showAdminMessage(data.message || "Failed to update match status.");
+        }
+      } catch (error) {
+        console.error("Match status update error:", error);
+        showAdminMessage("Server error while updating match status.");
+      }
+    }
+
+    function renderContactMessagesTable(contacts) {
+  const tbody = document.getElementById("contactMessagesBody");
+  if (!tbody) return;
+
+  if (!Array.isArray(contacts) || contacts.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8">No contact messages found.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = contacts.map((msg) => {
+    const status = msg.status || "unread";
+    const chipClass = status === "read" ? "success-chip" : "warning-chip";
+
+    return `
+      <tr>
+        <td>${escapeHtml(msg.id || "-")}</td>
+        <td>${escapeHtml(msg.name || "-")}</td>
+        <td>${escapeHtml(msg.email || "-")}</td>
+        <td>${escapeHtml(msg.subject || "-")}</td>
+        <td class="admin-description-cell">${escapeHtml(msg.message || "-")}</td>
+        <td><span class="${chipClass}">${escapeHtml(status)}</span></td>
+        <td>${formatDate(msg.created_at)}</td>
+        <td>
+          <div class="admin-action-row">
+            <button 
+              class="btn btn-secondary admin-small-btn" 
+              onclick="markMessageRead(${msg.id})"
+              ${status === 'read' ? 'disabled' : ''}
+            >
+              Mark Read
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+async function markMessageAsRead(messageId) {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await fetch(`${API_BASE_URL}/admin/contact-messages/${messageId}/status`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status: "Read" }) 
+        });
+
+        if (response.ok) {
+            fetchAdminData();
+        } else {
+            alert("Failed to update message status.");
+        }
+    } catch (error) {
+        console.error("Error updating status:", error);
+    }
+}
+  </script>
 </body>
+
 </html>

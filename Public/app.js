@@ -173,21 +173,21 @@ async function handleLoginSubmit(event) {
     const data = await response.json();
 
     if (response.ok) {
-      alert("Login successful!");
+      alert(data.message || "Login successful!");
 
-      // Save token (IMPORTANT)
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("name", data.name);
       localStorage.setItem("token", data.token);
       localStorage.setItem("name", data.user.name);
       localStorage.setItem("email", data.user.email);
+      localStorage.setItem("role", data.user.role || "user");
 
-      // Redirect
-      window.location.href = "dashboard.html";
+      if (data.user.role === "admin") {
+        window.location.href = "admin.html";
+      } else {
+        window.location.href = "dashboard.html";
+      }
     } else {
       alert(data.message || "Login failed");
     }
-
   } catch (error) {
     console.error("Login error:", error);
     alert("Server error");
@@ -253,6 +253,17 @@ function requireLoginOnDashboard() {
   if (protectedPages.includes(currentPage) && !getToken()) {
     alert("Please login first.");
     window.location.href = "login.html";
+    return;
+  }
+
+  if (currentPage === "admin.html") {
+    const role = localStorage.getItem("role");
+    const email = localStorage.getItem("email");
+
+    if (role !== "admin" || email !== "admin@khoj.in") {
+      alert("Admins only.");
+      window.location.href = "dashboard.html";
+    }
   }
 }
 

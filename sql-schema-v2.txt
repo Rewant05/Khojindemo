@@ -1,0 +1,61 @@
+Table: found_items
+Columns:
+id int AI PK 
+user_id int 
+item_name varchar(150) 
+description text 
+location varchar(255) 
+date_found date 
+image_url varchar(255) 
+status enum('Available','Matched','Returned') 
+created_at timestamp 
+partner_id int
+
+//////////////////////////////////////////////////////////////////////////////////
+
+Table: lost_items
+Columns:
+id int AI PK 
+user_id int 
+item_name varchar(150) 
+description text 
+location varchar(255) 
+date_lost date 
+image_url varchar(255) 
+status enum('Pending','Found','Claimed') 
+created_at timestamp
+
+/////////////////////////////////////////////////////////////////////////////////
+
+Table: matched_items
+Columns:
+id int AI PK 
+lost_item_id int 
+found_item_id int 
+matched_at timestamp 
+match_score int 
+match_reason text 
+status enum('Pending Review','
+
+/////////////////////////////////////////////////////////////////////////////////
+
+Table: partners
+Columns:
+id int AI PK 
+name varchar(255) 
+type varchar(100) 
+location varchar(255) 
+email varchar(255) 
+description text 
+status enum('pending','approved','rejected') 
+created_at timestamp
+
+/////////////////////////////////////////////////////////////////////////////////
+
+Table: users
+Columns:
+id int AI PK 
+name varchar(100) 
+email varchar(150) 
+password varchar(255) 
+created_at timestamp

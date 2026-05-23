@@ -1,0 +1,43 @@
+Email: admin@khoj.in
+Password: KhojAdmin@123
+
+
+
+MAIL FOR KAPIL:
+Hi Kapil,
+
+Thank you for the detailed response. I appreciate the clarity about the bar and expectations.
+
+I understand that BreakoutAI is looking for people who can operate with high intensity, strong product taste, and actual proof of building. I do want to compete for that level. I am not looking for a low-effort internship; I am looking for a place where I can learn fast, build seriously, and be pushed to improve.
+
+Sharing a few projects/experiments that show how I think and build:
+
+1. KHOJ – Lost & Found Platform  
+Portfolio: https://rewant-portfolio.netlify.app/#projects  
+GitHub: https://github.com/Rewant05?tab=repositories  
+
+KHOJ is a full-stack lost and found platform I built using Node.js, Express.js, MySQL, JWT authentication, REST APIs, and deployment. It includes lost/found reporting flows, authentication, database integration, and deployed backend/frontend workflows.
+
+Recently, I upgraded the matching logic using GloVe word embeddings. Instead of only exact/static matching, the system now compares lost and found reports across item name, description, and location fields using semantic similarity. This makes the matching more practical because two users may describe the same item differently.
+
+2. AI-based Virtual Try-On / Generative AI Project  
+This is my current research/BTP work under Prof. Debarka Sengupta at IIIT Delhi. The project involves computer vision, image masking, region-based editing, and generative AI workflows for realistic jewelry/ear-region try-on. The main challenge is not just generating an image, but preserving the user’s structure and making the output look realistic instead of like a sticker.
+
+3. Product/workflow thinking experiment for BreakoutAI  
+I also shared one small workflow idea separately through the BreakoutAI website email around a “Candidate Evidence Agent,” since I felt it directly connects with recruiting and proof-based evaluation. The idea is to collect evidence from GitHub, portfolio, Product Hunt activity, project links, LinkedIn, and written answers, then generate a structured hiring brief with role-fit score, project evidence, risk flags, and suggested interview questions.
+
+What I am strongest at right now:
+- Full-stack development: Node.js, Express.js, MySQL, REST APIs, authentication, deployment
+- AI/product workflows: GloVe-based semantic matching, computer vision/generative AI experimentation
+- Fast learning and execution: I am comfortable figuring out unfamiliar tools, reading docs, debugging, and using AI tools properly without blindly copy-pasting
+
+I have also attached my updated resume for reference, since I recently improved KHOJ with GloVe-based semantic matching and my earlier resume may not fully reflect that update.
+
+I know I am still early, but I am serious about building at a high level. If the next round involves building a small agent/demo/workflow, I would be excited to attempt it.
+
+Best regards,  
+Rewant Anand  
+Product Hunt: https://www.producthunt.com/@rewant_anand  
+LinkedIn: https://www.linkedin.com/in/rewant-anand-214310290/  
+GitHub: https://github.com/Rewant05?tab=repositories  
+Portfolio: https://rewant-portfolio.netlify.app/#projects

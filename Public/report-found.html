@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="favicon_io/favicon-16x16.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Report Found Item — KHOJ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="chatbot.css">
 </head>
 <style>
   .khoj-assistant-card {
@@ -86,7 +88,6 @@
         <a href="report-lost.html">Report Lost</a>
         <a href="report-found.html">Report Found</a>
         <a href="dashboard.html">Dashboard</a>
-        <a href="admin.html">Admin</a>
         <a href="contact.html">Contact</a>
         <a href="login.html" id="mobileNavUserBtn">Login</a>
         <a href="register.html">Create account</a>
@@ -241,6 +242,79 @@
       </div>
     </div>
   </footer>
+
+  <div class="khoj-ai-chatbot">
+  <canvas id="chatbotCanvas"></canvas>
+
+  <button class="ai-chat-toggle" id="chatbotToggle" aria-label="Open KHOJ AI Assistant">
+    <span class="toggle-orbit"></span>
+    <span class="toggle-core">AI</span>
+    <span class="toggle-pulse"></span>
+  </button>
+
+  <div class="ai-chat-window" id="chatbotWindow">
+    <div class="ai-chat-glow"></div>
+
+    <div class="ai-chat-header">
+      <div class="ai-avatar">
+        <span></span>
+      </div>
+
+      <div class="ai-header-text">
+        <h3>KHOJ AI Sentinel</h3>
+        <p><span class="online-dot"></span> Neural assistant online</p>
+      </div>
+
+      <div class="ai-header-actions">
+        <button id="chatbotClear" title="Clear chat">↺</button>
+        <button id="chatbotMinimize" title="Minimize">—</button>
+        <button id="chatbotClose" title="Close">×</button>
+      </div>
+    </div>
+
+    <div class="ai-status-strip">
+      <span>Identity Scan</span>
+      <span>Match Engine</span>
+      <span>Claim Support</span>
+    </div>
+
+    <div class="ai-chat-messages" id="chatbotMessages">
+      <div class="ai-message bot-message">
+        <div class="message-meta">KHOJ AI</div>
+        <div class="message-bubble">
+          Hi Rewant 👋 I’m <b>KHOJ AI Sentinel</b>.<br><br>
+          I can help users report lost items, submit found items, understand matching, verify claims, and guide partner centers.
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-quick-actions">
+      <button data-question="How do I report a lost item?">Lost item</button>
+      <button data-question="How do I report a found item?">Found item</button>
+      <button data-question="How does KHOJ match items?">Matching</button>
+      <button data-question="How do I verify ownership?">Claim verify</button>
+      <button data-question="How can an institution partner with KHOJ?">Partner</button>
+    </div>
+
+    <form class="ai-chat-input-area" id="chatbotForm">
+      <div class="input-shell">
+        <input
+          type="text"
+          id="chatbotInput"
+          placeholder="Ask KHOJ AI..."
+          autocomplete="off"
+        />
+        <span class="input-scan"></span>
+      </div>
+      <button type="submit" class="send-btn">
+        <span>Send</span>
+        <b>➤</b>
+      </button>
+    </form>
+  </div>
+</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="chatbot.js"></script>
 
   <script src="app.js"></script>
   <script>
